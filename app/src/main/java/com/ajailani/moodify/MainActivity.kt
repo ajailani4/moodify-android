@@ -11,6 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.rememberNavController
+import com.ajailani.moodify.ui.Navigation
+import com.ajailani.moodify.ui.Screen
 import com.ajailani.moodify.ui.feature.welcome.WelcomeScreen
 import com.ajailani.moodify.ui.theme.MoodifyTheme
 
@@ -26,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Content()
+                    Content(Screen.Welcome.route)
                 }
             }
         }
@@ -34,14 +37,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Content() {
+fun Content(startDestination: String) {
+    val navController = rememberNavController()
 
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MoodifyTheme {
-        Content()
-    }
+    Navigation(
+        navHostController = navController,
+        startDestination = startDestination
+    )
 }
