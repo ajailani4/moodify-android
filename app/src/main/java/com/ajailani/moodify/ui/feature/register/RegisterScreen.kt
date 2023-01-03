@@ -30,7 +30,9 @@ import com.ajailani.moodify.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(
+    onNavigateUp: () -> Unit
+) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
@@ -44,7 +46,7 @@ fun RegisterScreen() {
         ) {
             IconButton(
                 modifier = Modifier.padding(top = 8.dp, start = 4.dp),
-                onClick = { /*TODO*/ }
+                onClick = onNavigateUp
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,

@@ -6,15 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.ajailani.moodify.ui.Navigation
 import com.ajailani.moodify.ui.Screen
-import com.ajailani.moodify.ui.feature.welcome.WelcomeScreen
 import com.ajailani.moodify.ui.theme.MoodifyTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,7 +38,7 @@ fun Content(startDestination: String) {
     val navController = rememberNavController()
 
     Navigation(
-        navHostController = navController,
+        navController = navController,
         startDestination = startDestination
     )
 }
