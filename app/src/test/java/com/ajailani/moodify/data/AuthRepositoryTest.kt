@@ -95,4 +95,52 @@ class AuthRepositoryTest {
                 actualResource
             )
         }
+
+    @Test
+    fun `Login should return success resource`() =
+        runTest(UnconfinedTestDispatcher()) {
+            val response = Response.success(
+                200,
+                BaseResponse(
+                    code = 200,
+                    status = "OK",
+                    data = userCredentialDto
+                )
+            )
+
+            doReturn(response).`when`(authRemoteDataSource).login(any())
+
+            val actualResource = authRepository.login(
+                username = "george",
+                password = "123"
+            ).first()
+
+            assertEquals(
+                "Resource should be success",
+                Resource.Success(userCredential),
+                actualResource
+            )
+        }
+
+    @Test
+    fun `Login should return error resource`() =
+        runTest(UnconfinedTestDispatcher()) {
+            val response = Response.error<UserCredentialDto>(
+                400,
+                "".toResponseBody()
+            )
+
+            doReturn(response).`when`(authRemoteDataSource).login(any())
+
+            val actualResource = authRepository.login(
+                username = "george",
+                password = "123"
+            ).first()
+
+            assertEquals(
+                "Resource should be success",
+                Resource.Error<UserCredential>(),
+                actualResource
+            )
+        }
 }
