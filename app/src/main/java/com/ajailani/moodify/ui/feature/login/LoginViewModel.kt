@@ -1,4 +1,4 @@
-package com.ajailani.moodify.ui.feature.register
+package com.ajailani.moodify.ui.feature.login
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -6,27 +6,21 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ajailani.moodify.data.Resource
-import com.ajailani.moodify.domain.use_case.auth.RegisterAccountUseCase
+import com.ajailani.moodify.domain.use_case.auth.LoginAccountUseCase
 import com.ajailani.moodify.domain.use_case.user_credential.SaveAccessTokenUseCase
 import com.ajailani.moodify.ui.common.UIState
+import com.ajailani.moodify.ui.feature.register.RegisterEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(
-    private val registerAccountUseCase: RegisterAccountUseCase,
+class LoginViewModel @Inject constructor(
+    private val loginAccountUseCase: LoginAccountUseCase,
     private val saveAccessTokenUseCase: SaveAccessTokenUseCase
 ) : ViewModel() {
-    var registerState by mutableStateOf<UIState<Nothing>>(UIState.Idle)
-        private set
-
-    var name by mutableStateOf("")
-        private set
-
-    var email by mutableStateOf("")
+    var loginState by mutableStateOf<UIState<Nothing>>(UIState.Idle)
         private set
 
     var username by mutableStateOf("")
@@ -38,38 +32,32 @@ class RegisterViewModel @Inject constructor(
     var passwordVisibility by mutableStateOf(false)
         private set
 
-    fun onEvent(event: RegisterEvent) {
+    fun onEvent(event: LoginEvent) {
         when (event) {
-            RegisterEvent.Register -> register()
+            is LoginEvent.Login -> login()
 
-            is RegisterEvent.OnNameChanged -> name = event.name
+            is LoginEvent.OnUsernameChanged -> username = event.username
 
-            is RegisterEvent.OnEmailChanged -> email = event.email
+            is LoginEvent.OnPasswordChanged -> password = event.password
 
-            is RegisterEvent.OnUsernameChanged -> username = event.username
-
-            is RegisterEvent.OnPasswordChanged -> password = event.password
-
-            RegisterEvent.OnPasswordVisibilityChanged -> passwordVisibility = !passwordVisibility
+            LoginEvent.OnPasswordVisibilityChanged -> passwordVisibility = !passwordVisibility
         }
     }
 
-    private fun register() {
-        registerState = UIState.Loading
+    private fun login() {
+        loginState = UIState.Loading
 
         viewModelScope.launch {
-            registerAccountUseCase(
-                name = name,
-                email = email,
+            loginAccountUseCase(
                 username = username,
                 password = password
             ).catch {
-                registerState = UIState.Error(it.localizedMessage)
+                loginState = UIState.Error(it.localizedMessage)
             }.collect {
-                registerState = when (it) {
+                loginState = when (it) {
                     is Resource.Success -> {
                         it.data?.accessToken?.let {
-                            accessToken -> saveAccessTokenUseCase(accessToken)
+                                accessToken -> saveAccessTokenUseCase(accessToken)
                         }
 
                         UIState.Success(null)
