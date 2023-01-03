@@ -13,7 +13,9 @@ import androidx.navigation.compose.rememberNavController
 import com.ajailani.moodify.ui.Navigation
 import com.ajailani.moodify.ui.Screen
 import com.ajailani.moodify.ui.theme.MoodifyTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
