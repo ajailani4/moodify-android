@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Moodify</string>
-
-    <string name="welcome_to_moodify">Selamat Datang di Moodify</string>
-    <string name="track_your_moods">Catat mood kamu dan dapatkan rekomendasi aktivitas</string>
-    <string name="login">Masuk</string>
-    <string name="register">Daftar</string>
-</resources>

@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.ajailani.moodify.R
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    onNavigateToRegister: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,7 +65,7 @@ fun WelcomeScreen() {
                     width = 1.dp,
                     color = MaterialTheme.colorScheme.primary
                 ),
-                onClick = { /*TODO*/ }
+                onClick = onNavigateToRegister
             ) {
                 Text(
                     modifier = Modifier.padding(5.dp),
