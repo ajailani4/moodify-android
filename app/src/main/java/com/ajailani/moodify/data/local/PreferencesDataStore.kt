@@ -27,8 +27,7 @@ class PreferencesDataStore @Inject constructor(
         }
     }
 
-    fun getAccessToken() =
-        context.dataStore.data.map { it[ACCESS_TOKEN] ?: "" }
+    fun getAccessToken() = context.dataStore.data.map { it[ACCESS_TOKEN] ?: "" }
 
     suspend fun deleteAccessToken() {
         context.dataStore.edit {
