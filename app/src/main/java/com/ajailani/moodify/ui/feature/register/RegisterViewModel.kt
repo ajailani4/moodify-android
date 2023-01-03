@@ -11,7 +11,6 @@ import com.ajailani.moodify.domain.use_case.user_credential.SaveAccessTokenUseCa
 import com.ajailani.moodify.ui.common.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -68,8 +67,8 @@ class RegisterViewModel @Inject constructor(
             }.collect {
                 registerState = when (it) {
                     is Resource.Success -> {
-                        it.data?.accessToken?.let {
-                            accessToken -> saveAccessTokenUseCase(accessToken)
+                        it.data?.accessToken?.let { accessToken ->
+                            saveAccessTokenUseCase(accessToken)
                         }
 
                         UIState.Success(null)

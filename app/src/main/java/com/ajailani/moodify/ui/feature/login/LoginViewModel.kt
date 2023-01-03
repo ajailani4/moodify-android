@@ -9,7 +9,6 @@ import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.domain.use_case.auth.LoginAccountUseCase
 import com.ajailani.moodify.domain.use_case.user_credential.SaveAccessTokenUseCase
 import com.ajailani.moodify.ui.common.UIState
-import com.ajailani.moodify.ui.feature.register.RegisterEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -56,8 +55,8 @@ class LoginViewModel @Inject constructor(
             }.collect {
                 loginState = when (it) {
                     is Resource.Success -> {
-                        it.data?.accessToken?.let {
-                                accessToken -> saveAccessTokenUseCase(accessToken)
+                        it.data?.accessToken?.let { accessToken ->
+                            saveAccessTokenUseCase(accessToken)
                         }
 
                         UIState.Success(null)
