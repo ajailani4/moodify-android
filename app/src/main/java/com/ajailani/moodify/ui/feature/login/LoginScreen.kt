@@ -1,4 +1,4 @@
-package com.ajailani.moodify.ui.feature.register
+package com.ajailani.moodify.ui.feature.login
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -9,8 +9,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material.icons.outlined.Badge
-import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
@@ -38,18 +36,16 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(
-    registerViewModel: RegisterViewModel = hiltViewModel(),
+fun LoginScreen(
+    loginViewModel: LoginViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
-    onNavigateToLogin: () -> Unit
+    onNavigateToRegister: () -> Unit
 ) {
-    val onEvent = registerViewModel::onEvent
-    val registerState = registerViewModel.registerState
-    val name = registerViewModel.name
-    val email = registerViewModel.email
-    val username = registerViewModel.username
-    val password = registerViewModel.password
-    val passwordVisibility = registerViewModel.passwordVisibility
+    val onEvent = loginViewModel::onEvent
+    val loginState = loginViewModel.loginState
+    val username = loginViewModel.username
+    val password = loginViewModel.password
+    val passwordVisibility = loginViewModel.passwordVisibility
 
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -79,55 +75,16 @@ fun RegisterScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.register),
+                    text = stringResource(id = R.string.login),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Spacer(modifier = Modifier.height(50.dp))
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = name,
-                    onValueChange = {
-                        onEvent(RegisterEvent.OnNameChanged(it))
-                    },
-                    label = {
-                        Text(text = stringResource(id = R.string.name))
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Badge,
-                            contentDescription = "Name icon"
-                        )
-                    },
-                    singleLine = true
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = email,
-                    onValueChange = {
-                        onEvent(RegisterEvent.OnEmailChanged(it))
-                    },
-                    label = {
-                        Text(text = stringResource(id = R.string.email))
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Email,
-                            contentDescription = "Email icon"
-                        )
-                    },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Email
-                    )
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
                     value = username,
                     onValueChange = {
-                        onEvent(RegisterEvent.OnUsernameChanged(it))
+                        onEvent(LoginEvent.OnUsernameChanged(it))
                     },
                     label = {
                         Text(text = stringResource(id = R.string.username))
@@ -145,7 +102,7 @@ fun RegisterScreen(
                     modifier = Modifier.fillMaxWidth(),
                     value = password,
                     onValueChange = {
-                        onEvent(RegisterEvent.OnPasswordChanged(it))
+                        onEvent(LoginEvent.OnPasswordChanged(it))
                     },
                     label = {
                         Text(text = stringResource(id = R.string.password))
@@ -159,7 +116,7 @@ fun RegisterScreen(
                     trailingIcon = {
                         IconButton(
                             onClick = {
-                                onEvent(RegisterEvent.OnPasswordVisibilityChanged)
+                                onEvent(LoginEvent.OnPasswordVisibilityChanged)
                             }
                         ) {
                             Icon(
@@ -186,10 +143,9 @@ fun RegisterScreen(
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
-                        if (name.isNotEmpty() && email.isNotEmpty() &&
-                            username.isNotEmpty() && password.isNotEmpty()
+                        if (username.isNotEmpty() && password.isNotEmpty()
                         ) {
-                            onEvent(RegisterEvent.Register)
+                            onEvent(LoginEvent.Login)
                         } else {
                             coroutineScope.launch {
                                 snackbarHostState.showSnackbar(
@@ -201,13 +157,13 @@ fun RegisterScreen(
                 ) {
                     Text(
                         modifier = Modifier.padding(5.dp),
-                        text = stringResource(id = R.string.register)
+                        text = stringResource(id = R.string.login)
                     )
                 }
                 Spacer(modifier = Modifier.height(15.dp))
                 ClickableText(
                     text = buildAnnotatedString {
-                        append(stringResource(id = R.string.have_account))
+                        append(stringResource(id = R.string.have_no_account))
                         append(" ")
 
                         withStyle(
@@ -215,26 +171,26 @@ fun RegisterScreen(
                                 color = MaterialTheme.colorScheme.primary
                             )
                         ) {
-                            append(stringResource(id = R.string.login_here))
+                            append(stringResource(id = R.string.register_here))
                         }
                     },
                     style = MaterialTheme.typography.bodyLarge.copy(
                         color = MaterialTheme.colorScheme.onBackground
                     ),
-                    onClick = { onNavigateToLogin() }
+                    onClick = { onNavigateToRegister() }
                 )
             }
         }
 
-        // Observe register state
-        when (registerState) {
+        // Observe login state
+        when (loginState) {
             UIState.Loading -> ProgressBarWithBackground()
 
             is UIState.Success -> {}
 
             is UIState.Fail -> {
                 LaunchedEffect(snackbarHostState) {
-                    registerState.message?.let {
+                    loginState.message?.let {
                         snackbarHostState.showSnackbar(it)
                     }
                 }
@@ -242,7 +198,7 @@ fun RegisterScreen(
 
             is UIState.Error -> {
                 LaunchedEffect(snackbarHostState) {
-                    registerState.message?.let {
+                    loginState.message?.let {
                         snackbarHostState.showSnackbar(it)
                     }
                 }

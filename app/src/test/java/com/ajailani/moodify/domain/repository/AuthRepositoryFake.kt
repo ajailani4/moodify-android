@@ -22,6 +22,16 @@ class AuthRepositoryFake : AuthRepository {
             ResourceType.Error -> flowOf(Resource.Error(null))
         }
 
+    override fun login(
+        username: String,
+        password: String
+    ): Flow<Resource<UserCredential>> =
+        when (resourceType) {
+            ResourceType.Success -> flowOf(Resource.Success(userCredential))
+
+            ResourceType.Error -> flowOf(Resource.Error(null))
+        }
+
     fun setResourceType(type: ResourceType) {
         resourceType = type
     }
