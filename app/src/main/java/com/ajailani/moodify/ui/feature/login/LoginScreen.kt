@@ -31,7 +31,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    onNavigateUp: () -> Unit,
+    onNavigateToRegister: () -> Unit
+) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
@@ -45,7 +48,7 @@ fun LoginScreen() {
         ) {
             IconButton(
                 modifier = Modifier.padding(top = 8.dp, start = 4.dp),
-                onClick = {}
+                onClick = onNavigateUp
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
@@ -134,7 +137,7 @@ fun LoginScreen() {
                     style = MaterialTheme.typography.bodyLarge.copy(
                         color = MaterialTheme.colorScheme.onBackground
                     ),
-                    onClick = {}
+                    onClick = { onNavigateToRegister() }
                 )
             }
         }

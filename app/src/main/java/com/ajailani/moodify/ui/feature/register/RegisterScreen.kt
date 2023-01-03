@@ -40,7 +40,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterScreen(
     registerViewModel: RegisterViewModel = hiltViewModel(),
-    onNavigateUp: () -> Unit
+    onNavigateUp: () -> Unit,
+    onNavigateToLogin: () -> Unit
 ) {
     val onEvent = registerViewModel::onEvent
     val registerState = registerViewModel.registerState
@@ -220,7 +221,7 @@ fun RegisterScreen(
                     style = MaterialTheme.typography.bodyLarge.copy(
                         color = MaterialTheme.colorScheme.onBackground
                     ),
-                    onClick = {}
+                    onClick = { onNavigateToLogin() }
                 )
             }
         }

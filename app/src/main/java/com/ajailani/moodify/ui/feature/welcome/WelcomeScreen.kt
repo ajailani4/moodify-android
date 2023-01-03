@@ -18,6 +18,7 @@ import com.ajailani.moodify.R
 
 @Composable
 fun WelcomeScreen(
+    onNavigateToLogin: () -> Unit,
     onNavigateToRegister: () -> Unit
 ) {
     Column(
@@ -50,7 +51,7 @@ fun WelcomeScreen(
             Spacer(modifier = Modifier.height(50.dp))
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { /*TODO*/ }
+                onClick = onNavigateToLogin
             ) {
                 Text(
                     modifier = Modifier.padding(5.dp),
