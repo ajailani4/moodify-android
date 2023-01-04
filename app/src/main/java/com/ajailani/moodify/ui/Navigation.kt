@@ -38,5 +38,13 @@ fun Navigation(
         composable(Screen.Home.route) {
 
         }
+
+        composable(Screen.Statistic.route) {
+
+        }
+
+        composable(Screen.Profile.route) {
+
+        }
     }
 }

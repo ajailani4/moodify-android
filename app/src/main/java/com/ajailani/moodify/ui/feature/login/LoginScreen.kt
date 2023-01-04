@@ -67,7 +67,7 @@ fun LoginScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back icon"
+                    contentDescription = "Back filledIcon"
                 )
             }
             Column(
@@ -92,7 +92,7 @@ fun LoginScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Person,
-                            contentDescription = "Username icon"
+                            contentDescription = "Username filledIcon"
                         )
                     },
                     singleLine = true
@@ -110,7 +110,7 @@ fun LoginScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Lock,
-                            contentDescription = "Email icon"
+                            contentDescription = "Email filledIcon"
                         )
                     },
                     trailingIcon = {
@@ -125,7 +125,7 @@ fun LoginScreen(
                                 } else {
                                     Icons.Default.Visibility
                                 },
-                                contentDescription = "Password visibility icon"
+                                contentDescription = "Password visibility filledIcon"
                             )
                         }
                     },

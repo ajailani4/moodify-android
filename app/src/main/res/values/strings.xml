@@ -20,4 +20,8 @@
     <string name="username_already_exists">Username already exists. Try another username</string>
     <string name="incorrect_username_or_pass">Username or password is incorrect</string>
     <string name="something_wrong_happened">Sorry, something wrong happened</string>
+    
+    <string name="home">Home</string>
+    <string name="statistic">Statistic</string>
+    <string name="profile">Profile</string>
 </resources>

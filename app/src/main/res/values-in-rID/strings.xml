@@ -21,4 +21,8 @@
     <string name="username_already_exists">Username sudah ada. Coba yang lain</string>
     <string name="incorrect_username_or_pass">Username atau password salah</string>
     <string name="something_wrong_happened">Maaf, terjadi kesalahan</string>
+
+    <string name="home">Beranda</string>
+    <string name="statistic">Statistik</string>
+    <string name="profile">Profil</string>
 </resources>

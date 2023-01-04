@@ -71,7 +71,7 @@ fun RegisterScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back icon"
+                    contentDescription = "Back filledIcon"
                 )
             }
             Column(
@@ -96,7 +96,7 @@ fun RegisterScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Badge,
-                            contentDescription = "Name icon"
+                            contentDescription = "Name filledIcon"
                         )
                     },
                     singleLine = true
@@ -114,7 +114,7 @@ fun RegisterScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Email,
-                            contentDescription = "Email icon"
+                            contentDescription = "Email filledIcon"
                         )
                     },
                     singleLine = true,
@@ -135,7 +135,7 @@ fun RegisterScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Person,
-                            contentDescription = "Username icon"
+                            contentDescription = "Username filledIcon"
                         )
                     },
                     singleLine = true
@@ -153,7 +153,7 @@ fun RegisterScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Lock,
-                            contentDescription = "Email icon"
+                            contentDescription = "Email filledIcon"
                         )
                     },
                     trailingIcon = {
@@ -168,7 +168,7 @@ fun RegisterScreen(
                                 } else {
                                     Icons.Default.Visibility
                                 },
-                                contentDescription = "Password visibility icon"
+                                contentDescription = "Password visibility filledIcon"
                             )
                         }
                     },
