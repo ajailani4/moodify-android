@@ -34,5 +34,9 @@ fun Navigation(
                 onNavigateToLogin = { navController.navigate(Screen.Login.route) }
             )
         }
+
+        composable(Screen.Home.route) {
+
+        }
     }
 }
