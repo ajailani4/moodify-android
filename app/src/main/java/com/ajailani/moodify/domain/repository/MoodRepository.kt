@@ -1,5 +1,6 @@
 package com.ajailani.moodify.domain.repository
 
+import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.domain.model.MoodItem
 import kotlinx.coroutines.flow.Flow
 
@@ -9,5 +10,5 @@ interface MoodRepository {
         size: Int,
         month: Int?,
         year: Int?
-    ): Flow<List<MoodItem>>
+    ): Flow<Resource<List<MoodItem>>>
 }
