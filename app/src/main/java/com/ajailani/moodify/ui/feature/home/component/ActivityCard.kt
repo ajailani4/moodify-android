@@ -1,13 +1,18 @@
 package com.ajailani.moodify.ui.feature.home.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,16 +31,19 @@ fun ActivityCard(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Surface(
-                modifier = Modifier.size(30.dp),
-                shape = CircleShape,
-                color = MaterialTheme.colorScheme.primary
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(35.dp)
+                    .background(color = MaterialTheme.colorScheme.primary),
+                contentAlignment = Alignment.Center
             ) {
                 AsyncImage(
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size(21.dp),
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(activity.icon)
                         .build(),
+                    colorFilter = ColorFilter.tint(color = Color.White),
                     contentDescription = "Activity icon"
                 )
             }
