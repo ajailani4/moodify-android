@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 interface MoodRepository {
     fun getMoods(
         page: Int,
-        size: Int
+        size: Int,
+        month: Int,
+        year: Int
     ): Flow<List<MoodItem>>
 }
