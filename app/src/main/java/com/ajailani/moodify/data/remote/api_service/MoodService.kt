@@ -10,6 +10,8 @@ interface MoodService {
     @GET("moods")
     suspend fun getMoods(
         @Query("page") page: Int,
-        @Query("size") size: Int
+        @Query("size") size: Int,
+        @Query("month") month: Int,
+        @Query("year") year: Int
     ): Response<BaseResponse<List<MoodItemDto>>>
 }
