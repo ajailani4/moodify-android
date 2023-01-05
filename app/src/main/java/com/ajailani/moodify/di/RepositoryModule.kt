@@ -1,7 +1,9 @@
 package com.ajailani.moodify.di
 
+import com.ajailani.moodify.data.repository.ActivityRepositoryImpl
 import com.ajailani.moodify.data.repository.AuthRepositoryImpl
 import com.ajailani.moodify.data.repository.UserCredentialRepositoryImpl
+import com.ajailani.moodify.domain.repository.ActivityRepository
 import com.ajailani.moodify.domain.repository.AuthRepository
 import com.ajailani.moodify.domain.repository.UserCredentialRepository
 import dagger.Binds
@@ -21,4 +23,9 @@ abstract class RepositoryModule {
     abstract fun bindUserCredentialRepository(
         userCredentialRepositoryImpl: UserCredentialRepositoryImpl
     ): UserCredentialRepository
+
+    @Binds
+    abstract fun bindActivityRepository(
+        activityRepositoryImpl: ActivityRepositoryImpl
+    ): ActivityRepository
 }
