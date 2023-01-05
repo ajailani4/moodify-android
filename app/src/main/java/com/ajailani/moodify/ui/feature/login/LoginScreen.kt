@@ -39,7 +39,8 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     loginViewModel: LoginViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
-    onNavigateToRegister: () -> Unit
+    onNavigateToRegister: () -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val onEvent = loginViewModel::onEvent
     val loginState = loginViewModel.loginState
@@ -186,7 +187,7 @@ fun LoginScreen(
         when (loginState) {
             UIState.Loading -> ProgressBarWithBackground()
 
-            is UIState.Success -> {}
+            is UIState.Success -> onNavigateToHome()
 
             is UIState.Fail -> {
                 LaunchedEffect(snackbarHostState) {

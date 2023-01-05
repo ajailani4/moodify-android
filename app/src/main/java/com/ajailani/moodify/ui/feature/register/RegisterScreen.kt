@@ -41,7 +41,8 @@ import kotlinx.coroutines.launch
 fun RegisterScreen(
     registerViewModel: RegisterViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
-    onNavigateToLogin: () -> Unit
+    onNavigateToLogin: () -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val onEvent = registerViewModel::onEvent
     val registerState = registerViewModel.registerState
@@ -230,7 +231,7 @@ fun RegisterScreen(
         when (registerState) {
             UIState.Loading -> ProgressBarWithBackground()
 
-            is UIState.Success -> {}
+            is UIState.Success -> onNavigateToHome()
 
             is UIState.Fail -> {
                 LaunchedEffect(snackbarHostState) {
