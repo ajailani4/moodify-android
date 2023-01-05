@@ -10,6 +10,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -17,16 +20,25 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ajailani.moodify.R
+import com.ajailani.moodify.domain.model.Activity
+import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.common.component.MoodCard
 import com.ajailani.moodify.ui.feature.home.component.ActivityCard
-import com.ajailani.moodify.util.activities
 import com.ajailani.moodify.util.moods
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    homeViewModel: HomeViewModel = hiltViewModel()
+) {
+    val recommendedActivitiesState = homeViewModel.recommendedActivitiesState
+
+    val snackbarHostState = remember { SnackbarHostState() }
+
     Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         floatingActionButton = {
             FloatingActionButton(onClick = { /*TODO*/ }) {
                 Icon(
@@ -48,7 +60,10 @@ fun HomeScreen() {
             ) {
                 Header()
                 Spacer(modifier = Modifier.height(30.dp))
-                RecommendedActivitiesSection()
+                RecommendedActivitiesSection(
+                    snackbarHostState = snackbarHostState,
+                    recommendedActivitiesState = recommendedActivitiesState
+                )
                 Spacer(modifier = Modifier.height(30.dp))
                 MyMoodsSection(
                     onViewAllClicked = {}
@@ -78,22 +93,58 @@ private fun Header() {
 }
 
 @Composable
-private fun RecommendedActivitiesSection() {
+private fun RecommendedActivitiesSection(
+    snackbarHostState: SnackbarHostState,
+    recommendedActivitiesState: UIState<List<Activity>>
+) {
     Column {
         Text(
             text = stringResource(id = R.string.recommended_activities),
             style = MaterialTheme.typography.titleMedium.copy(fontSize = 18.sp)
         )
         Spacer(modifier = Modifier.height(20.dp))
-        
-        activities.forEach { activity ->
-            ActivityCard(
-                activity = activity
-            )
 
-            if (activity != activities.last()) {
-                Spacer(modifier = Modifier.height(15.dp))
+        when (recommendedActivitiesState) {
+            UIState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
             }
+
+            is UIState.Success -> {
+                recommendedActivitiesState.data?.let { activities ->
+                    activities.forEach { activity ->
+                        ActivityCard(
+                            activity = activity
+                        )
+
+                        if (activity != activities.last()) {
+                            Spacer(modifier = Modifier.height(15.dp))
+                        }
+                    }
+                }
+            }
+
+            is UIState.Fail -> {
+                LaunchedEffect(snackbarHostState) {
+                    recommendedActivitiesState.message?.let {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            }
+
+            is UIState.Error -> {
+                LaunchedEffect(snackbarHostState) {
+                    recommendedActivitiesState.message?.let {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            }
+
+            else -> {}
         }
     }
 }
@@ -120,7 +171,7 @@ private fun MyMoodsSection(
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
-        
+
         moods.forEach { moodItem ->
             MoodCard(
                 moodItem = moodItem,

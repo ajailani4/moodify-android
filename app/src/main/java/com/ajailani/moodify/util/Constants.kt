@@ -10,24 +10,6 @@ class Constants {
     }
 }
 
-val activities = listOf(
-    Activity(
-        id = "1",
-        name = "Mendengarkan musik",
-        icon = "abcd"
-    ),
-    Activity(
-        id = "2",
-        name = "Olahraga",
-        icon = "abcd"
-    ),
-    Activity(
-        id = "3",
-        name = "Berinteraksi dengan teman",
-        icon = "abcd"
-    )
-)
-
 val moods = listOf(
     MoodItem(
         id = "1",
