@@ -7,7 +7,7 @@ interface MoodRepository {
     fun getMoods(
         page: Int,
         size: Int,
-        month: Int,
-        year: Int
+        month: Int?,
+        year: Int?
     ): Flow<List<MoodItem>>
 }
