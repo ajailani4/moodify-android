@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ajailani.moodify.R
 import com.ajailani.moodify.domain.model.Activity
+import com.ajailani.moodify.domain.model.MoodItem
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.common.component.MoodCard
 import com.ajailani.moodify.ui.feature.home.component.ActivityCard
-import com.ajailani.moodify.util.moods
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,6 +34,7 @@ fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val recommendedActivitiesState = homeViewModel.recommendedActivitiesState
+    val moodsState = homeViewModel.moodsState
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -61,11 +62,13 @@ fun HomeScreen(
                 Header()
                 Spacer(modifier = Modifier.height(30.dp))
                 RecommendedActivitiesSection(
-                    snackbarHostState = snackbarHostState,
-                    recommendedActivitiesState = recommendedActivitiesState
+                    recommendedActivitiesState = recommendedActivitiesState,
+                    snackbarHostState = snackbarHostState
                 )
                 Spacer(modifier = Modifier.height(30.dp))
                 MyMoodsSection(
+                    moodsState = moodsState,
+                    snackbarHostState = snackbarHostState,
                     onViewAllClicked = {}
                 )
             }
@@ -94,8 +97,8 @@ private fun Header() {
 
 @Composable
 private fun RecommendedActivitiesSection(
-    snackbarHostState: SnackbarHostState,
-    recommendedActivitiesState: UIState<List<Activity>>
+    recommendedActivitiesState: UIState<List<Activity>>,
+    snackbarHostState: SnackbarHostState
 ) {
     Column {
         Text(
@@ -151,6 +154,8 @@ private fun RecommendedActivitiesSection(
 
 @Composable
 private fun MyMoodsSection(
+    moodsState: UIState<List<MoodItem>>,
+    snackbarHostState: SnackbarHostState,
     onViewAllClicked: () -> Unit
 ) {
     Column {
@@ -172,12 +177,45 @@ private fun MyMoodsSection(
         }
         Spacer(modifier = Modifier.height(20.dp))
 
-        moods.forEach { moodItem ->
-            MoodCard(
-                moodItem = moodItem,
-                onClick = {}
-            )
-            Spacer(modifier = Modifier.height(20.dp))
+        when (moodsState) {
+            UIState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            is UIState.Success -> {
+                moodsState.data?.let { moods ->
+                    moods.forEach { moodItem ->
+                        MoodCard(
+                            moodItem = moodItem,
+                            onClick = {}
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
+                    }
+                }
+            }
+
+            is UIState.Fail -> {
+                LaunchedEffect(snackbarHostState) {
+                    moodsState.message?.let {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            }
+
+            is UIState.Error -> {
+                LaunchedEffect(snackbarHostState) {
+                    moodsState.message?.let {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            }
+
+            else -> {}
         }
     }
 }
