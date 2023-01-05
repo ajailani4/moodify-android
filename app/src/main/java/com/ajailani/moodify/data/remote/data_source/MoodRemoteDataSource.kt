@@ -9,8 +9,8 @@ class MoodRemoteDataSource @Inject constructor(
     suspend fun getMoods(
         page: Int,
         size: Int,
-        month: Int,
-        year: Int
+        month: Int?,
+        year: Int?
     ) = moodService.getMoods(
         page = page,
         size = size,
