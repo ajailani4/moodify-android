@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.ajailani.moodify.R
 import com.ajailani.moodify.domain.model.MoodItem
+import com.ajailani.moodify.util.Formatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,7 +68,7 @@ fun MoodCard(
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
-                        text = "${moodItem.date}  •  ${moodItem.time}",
+                        text = "${Formatter.formatDate(moodItem.date)}  •  ${moodItem.time}",
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
