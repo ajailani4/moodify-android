@@ -8,9 +8,13 @@ class GetMoodsUseCase @Inject constructor(
 ) {
     operator fun invoke(
         page: Int,
-        size: Int
+        size: Int,
+        month: Int,
+        year: Int
     ) = moodRepository.getMoods(
         page = page,
-        size = size
+        size = size,
+        month = month,
+        year = year
     )
 }
