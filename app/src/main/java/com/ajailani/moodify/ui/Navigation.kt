@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.ajailani.moodify.ui.feature.home.HomeScreen
 import com.ajailani.moodify.ui.feature.login.LoginScreen
 import com.ajailani.moodify.ui.feature.register.RegisterScreen
 import com.ajailani.moodify.ui.feature.welcome.WelcomeScreen
@@ -36,7 +37,7 @@ fun Navigation(
         }
 
         composable(Screen.Home.route) {
-
+            HomeScreen()
         }
 
         composable(Screen.Statistic.route) {

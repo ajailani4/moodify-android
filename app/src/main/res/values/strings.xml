@@ -24,4 +24,13 @@
     <string name="home">Home</string>
     <string name="statistic">Statistic</string>
     <string name="profile">Profile</string>
+
+    <string name="recommended_activities">Recommended Activities</string>
+    <string name="my_moods">My Moods</string>
+    <string name="view_all">View all</string>
+    <string name="excellent">Excellent</string>
+    <string name="good">Good</string>
+    <string name="okay">Okay</string>
+    <string name="bad">Bad</string>
+    <string name="terrible">Terrible</string>
 </resources>
