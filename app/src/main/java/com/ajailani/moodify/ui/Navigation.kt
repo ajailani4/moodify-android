@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.ajailani.moodify.ui.feature.home.HomeScreen
 import com.ajailani.moodify.ui.feature.login.LoginScreen
 import com.ajailani.moodify.ui.feature.register.RegisterScreen
 import com.ajailani.moodify.ui.feature.welcome.WelcomeScreen
@@ -24,15 +25,45 @@ fun Navigation(
         composable(Screen.Login.route) {
             LoginScreen(
                 onNavigateUp = { navController.navigateUp() },
-                onNavigateToRegister = { navController.navigate(Screen.Register.route) }
+                onNavigateToRegister = { navController.navigate(Screen.Register.route) },
+                onNavigateToHome = {
+                    navController.navigate(Screen.Home.route) {
+                        launchSingleTop = true
+
+                        popUpTo(Screen.Welcome.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
         }
 
         composable(Screen.Register.route) {
             RegisterScreen(
                 onNavigateUp = { navController.navigateUp() },
-                onNavigateToLogin = { navController.navigate(Screen.Login.route) }
+                onNavigateToLogin = { navController.navigate(Screen.Login.route) },
+                onNavigateToHome = {
+                    navController.navigate(Screen.Home.route) {
+                        launchSingleTop = true
+
+                        popUpTo(Screen.Welcome.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
+        }
+
+        composable(Screen.Home.route) {
+            HomeScreen()
+        }
+
+        composable(Screen.Statistic.route) {
+
+        }
+
+        composable(Screen.Profile.route) {
+
         }
     }
 }

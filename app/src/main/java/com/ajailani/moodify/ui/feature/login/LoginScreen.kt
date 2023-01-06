@@ -39,7 +39,8 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     loginViewModel: LoginViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
-    onNavigateToRegister: () -> Unit
+    onNavigateToRegister: () -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val onEvent = loginViewModel::onEvent
     val loginState = loginViewModel.loginState
@@ -67,7 +68,7 @@ fun LoginScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back icon"
+                    contentDescription = "Back filledIcon"
                 )
             }
             Column(
@@ -92,7 +93,7 @@ fun LoginScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Person,
-                            contentDescription = "Username icon"
+                            contentDescription = "Username filledIcon"
                         )
                     },
                     singleLine = true
@@ -110,7 +111,7 @@ fun LoginScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Lock,
-                            contentDescription = "Email icon"
+                            contentDescription = "Email filledIcon"
                         )
                     },
                     trailingIcon = {
@@ -125,7 +126,7 @@ fun LoginScreen(
                                 } else {
                                     Icons.Default.Visibility
                                 },
-                                contentDescription = "Password visibility icon"
+                                contentDescription = "Password visibility filledIcon"
                             )
                         }
                     },
@@ -186,7 +187,7 @@ fun LoginScreen(
         when (loginState) {
             UIState.Loading -> ProgressBarWithBackground()
 
-            is UIState.Success -> {}
+            is UIState.Success -> onNavigateToHome()
 
             is UIState.Fail -> {
                 LaunchedEffect(snackbarHostState) {

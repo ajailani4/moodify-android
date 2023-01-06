@@ -7,8 +7,6 @@ import com.ajailani.moodify.domain.use_case.user_credential.SaveAccessTokenUseCa
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.feature.login.LoginEvent
 import com.ajailani.moodify.ui.feature.login.LoginViewModel
-import com.ajailani.moodify.ui.feature.register.RegisterEvent
-import com.ajailani.moodify.ui.feature.register.RegisterViewModel
 import com.ajailani.moodify.util.TestCoroutineRule
 import com.ajailani.moodify.util.userCredential
 import kotlinx.coroutines.ExperimentalCoroutinesApi

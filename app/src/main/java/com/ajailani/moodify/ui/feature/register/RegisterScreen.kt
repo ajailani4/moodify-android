@@ -41,7 +41,8 @@ import kotlinx.coroutines.launch
 fun RegisterScreen(
     registerViewModel: RegisterViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
-    onNavigateToLogin: () -> Unit
+    onNavigateToLogin: () -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val onEvent = registerViewModel::onEvent
     val registerState = registerViewModel.registerState
@@ -71,7 +72,7 @@ fun RegisterScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back icon"
+                    contentDescription = "Back filledIcon"
                 )
             }
             Column(
@@ -96,7 +97,7 @@ fun RegisterScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Badge,
-                            contentDescription = "Name icon"
+                            contentDescription = "Name filledIcon"
                         )
                     },
                     singleLine = true
@@ -114,7 +115,7 @@ fun RegisterScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Email,
-                            contentDescription = "Email icon"
+                            contentDescription = "Email filledIcon"
                         )
                     },
                     singleLine = true,
@@ -135,7 +136,7 @@ fun RegisterScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Person,
-                            contentDescription = "Username icon"
+                            contentDescription = "Username filledIcon"
                         )
                     },
                     singleLine = true
@@ -153,7 +154,7 @@ fun RegisterScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Lock,
-                            contentDescription = "Email icon"
+                            contentDescription = "Email filledIcon"
                         )
                     },
                     trailingIcon = {
@@ -168,7 +169,7 @@ fun RegisterScreen(
                                 } else {
                                     Icons.Default.Visibility
                                 },
-                                contentDescription = "Password visibility icon"
+                                contentDescription = "Password visibility filledIcon"
                             )
                         }
                     },
@@ -230,7 +231,7 @@ fun RegisterScreen(
         when (registerState) {
             UIState.Loading -> ProgressBarWithBackground()
 
-            is UIState.Success -> {}
+            is UIState.Success -> onNavigateToHome()
 
             is UIState.Fail -> {
                 LaunchedEffect(snackbarHostState) {
