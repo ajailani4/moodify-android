@@ -1,5 +1,6 @@
 package com.ajailani.moodify.util
 
+import com.ajailani.moodify.data.remote.dto.ActivityDto
 import com.ajailani.moodify.data.remote.dto.UserCredentialDto
 import com.ajailani.moodify.domain.model.Activity
 import com.ajailani.moodify.domain.model.MoodItem
@@ -22,6 +23,24 @@ val activities = listOf(
         icon = "url"
     ),
     Activity(
+        name = "Belajar",
+        icon = "url"
+    )
+)
+
+val activitiesDto = listOf(
+    ActivityDto(
+        id = "1",
+        name = "Mendengarkan musik",
+        icon = "url"
+    ),
+    ActivityDto(
+        id = "2",
+        name = "Berolahraga",
+        icon = "url"
+    ),
+    ActivityDto(
+        id = "3",
         name = "Belajar",
         icon = "url"
     )
