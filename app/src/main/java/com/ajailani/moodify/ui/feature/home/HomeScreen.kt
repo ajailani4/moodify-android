@@ -27,14 +27,19 @@ import com.ajailani.moodify.domain.model.MoodItem
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.common.component.MoodCard
 import com.ajailani.moodify.ui.feature.home.component.ActivityCard
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
+    val onEvent = homeViewModel::onEvent
     val recommendedActivitiesState = homeViewModel.recommendedActivitiesState
     val moodsState = homeViewModel.moodsState
+    val swipeRefreshing = homeViewModel.swipeRefreshing
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -49,28 +54,48 @@ fun HomeScreen(
             }
         }
     ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
+        // This is used because Compose Material 3 does not have rememberPullRefreshState() yet
+        // like Compose Material 2
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = swipeRefreshing),
+            onRefresh = {
+                onEvent(HomeEvent.OnSwipeRefresh(true))
+                onEvent(HomeEvent.GetRecommendedActivities)
+                onEvent(HomeEvent.GetMoods)
+            },
+            indicator = { state, trigger ->
+                SwipeRefreshIndicator(
+                    state = state,
+                    refreshTriggerDistance = trigger,
+                    contentColor = MaterialTheme.colorScheme.primary
+                )
+            }
         ) {
             Column(
                 modifier = Modifier
-                    .padding(20.dp)
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .verticalScroll(rememberScrollState())
             ) {
-                Header()
-                Spacer(modifier = Modifier.height(30.dp))
-                RecommendedActivitiesSection(
-                    recommendedActivitiesState = recommendedActivitiesState,
-                    snackbarHostState = snackbarHostState
-                )
-                Spacer(modifier = Modifier.height(30.dp))
-                MyMoodsSection(
-                    moodsState = moodsState,
-                    snackbarHostState = snackbarHostState,
-                    onViewAllClicked = {}
-                )
+                Column(
+                    modifier = Modifier
+                        .padding(20.dp)
+                ) {
+                    Header()
+                    Spacer(modifier = Modifier.height(30.dp))
+                    RecommendedActivitiesSection(
+                        onEvent = onEvent,
+                        recommendedActivitiesState = recommendedActivitiesState,
+                        snackbarHostState = snackbarHostState
+                    )
+                    Spacer(modifier = Modifier.height(30.dp))
+                    MyMoodsSection(
+                        onEvent = onEvent,
+                        moodsState = moodsState,
+                        snackbarHostState = snackbarHostState,
+                        onViewAllClicked = {}
+                    )
+                }
             }
         }
     }
@@ -97,6 +122,7 @@ private fun Header() {
 
 @Composable
 private fun RecommendedActivitiesSection(
+    onEvent: (HomeEvent) -> Unit,
     recommendedActivitiesState: UIState<List<Activity>>,
     snackbarHostState: SnackbarHostState
 ) {
@@ -118,6 +144,8 @@ private fun RecommendedActivitiesSection(
             }
 
             is UIState.Success -> {
+                onEvent(HomeEvent.OnSwipeRefresh(false))
+
                 recommendedActivitiesState.data?.let { activities ->
                     activities.forEach { activity ->
                         ActivityCard(
@@ -132,6 +160,8 @@ private fun RecommendedActivitiesSection(
             }
 
             is UIState.Fail -> {
+                onEvent(HomeEvent.OnSwipeRefresh(false))
+
                 LaunchedEffect(snackbarHostState) {
                     recommendedActivitiesState.message?.let {
                         snackbarHostState.showSnackbar(it)
@@ -140,6 +170,8 @@ private fun RecommendedActivitiesSection(
             }
 
             is UIState.Error -> {
+                onEvent(HomeEvent.OnSwipeRefresh(false))
+
                 LaunchedEffect(snackbarHostState) {
                     recommendedActivitiesState.message?.let {
                         snackbarHostState.showSnackbar(it)
@@ -154,6 +186,7 @@ private fun RecommendedActivitiesSection(
 
 @Composable
 private fun MyMoodsSection(
+    onEvent: (HomeEvent) -> Unit,
     moodsState: UIState<List<MoodItem>>,
     snackbarHostState: SnackbarHostState,
     onViewAllClicked: () -> Unit
@@ -188,6 +221,8 @@ private fun MyMoodsSection(
             }
 
             is UIState.Success -> {
+                onEvent(HomeEvent.OnSwipeRefresh(false))
+
                 moodsState.data?.let { moods ->
                     moods.forEach { moodItem ->
                         MoodCard(
@@ -200,6 +235,8 @@ private fun MyMoodsSection(
             }
 
             is UIState.Fail -> {
+                onEvent(HomeEvent.OnSwipeRefresh(false))
+
                 LaunchedEffect(snackbarHostState) {
                     moodsState.message?.let {
                         snackbarHostState.showSnackbar(it)
@@ -208,6 +245,8 @@ private fun MyMoodsSection(
             }
 
             is UIState.Error -> {
+                onEvent(HomeEvent.OnSwipeRefresh(false))
+
                 LaunchedEffect(snackbarHostState) {
                     moodsState.message?.let {
                         snackbarHostState.showSnackbar(it)

@@ -27,6 +27,9 @@ class HomeViewModel @Inject constructor(
     var moodsState by mutableStateOf<UIState<List<MoodItem>>>(UIState.Idle)
         private set
 
+    var swipeRefreshing by mutableStateOf(false)
+        private set
+
     init {
         getRecommendedActivities()
         getMoods()
@@ -35,7 +38,10 @@ class HomeViewModel @Inject constructor(
     fun onEvent(event: HomeEvent) {
         when (event) {
             HomeEvent.GetRecommendedActivities -> getRecommendedActivities()
+
             HomeEvent.GetMoods -> getMoods()
+
+            is HomeEvent.OnSwipeRefresh -> swipeRefreshing = event.isRefreshed
         }
     }
 

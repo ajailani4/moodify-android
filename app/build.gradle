@@ -70,6 +70,7 @@ dependencies {
 
     // Accompanist
     implementation "com.google.accompanist:accompanist-flowlayout:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
 
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$hilt_android_version"
