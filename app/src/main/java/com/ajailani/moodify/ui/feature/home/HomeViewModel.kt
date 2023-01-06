@@ -53,7 +53,15 @@ class HomeViewModel @Inject constructor(
                 recommendedActivitiesState = UIState.Error(it.localizedMessage)
             }.collect {
                 recommendedActivitiesState = when (it) {
-                    is Resource.Success -> UIState.Success(it.data?.slice(0..2))
+                    is Resource.Success -> UIState.Success(
+                        it.data?.let { activities ->
+                            if (activities.isNotEmpty()) {
+                                activities.slice(0..2)
+                            } else {
+                                activities
+                            }
+                        }
+                    )
 
                     is Resource.Error -> UIState.Fail(it.message)
                 }
