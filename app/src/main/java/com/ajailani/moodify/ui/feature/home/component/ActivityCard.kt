@@ -39,7 +39,7 @@ fun ActivityCard(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(activity.icon)
                         .build(),
-                    colorFilter = ColorFilter.tint(color = Color.White),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onPrimary),
                     contentDescription = "Activity icon"
                 )
             }
