@@ -1,17 +1,14 @@
 package com.ajailani.moodify.data.repository
 
 import android.content.Context
-import android.net.wifi.hotspot2.pps.Credential
 import com.ajailani.moodify.R
 import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.data.mapper.toUserCredential
 import com.ajailani.moodify.data.remote.data_source.AuthRemoteDataSource
 import com.ajailani.moodify.data.remote.dto.request.LoginRequest
 import com.ajailani.moodify.data.remote.dto.request.RegisterRequest
-import com.ajailani.moodify.domain.model.UserCredential
 import com.ajailani.moodify.domain.repository.AuthRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 

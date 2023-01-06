@@ -3,7 +3,6 @@ package com.ajailani.moodify.domain.repository
 import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.domain.model.MoodItem
 import com.ajailani.moodify.util.ResourceType
-import com.ajailani.moodify.util.activities
 import com.ajailani.moodify.util.moods
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

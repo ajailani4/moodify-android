@@ -4,8 +4,6 @@ import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.domain.model.Activity
 import com.ajailani.moodify.util.ResourceType
 import com.ajailani.moodify.util.activities
-import com.ajailani.moodify.util.moods
-import com.ajailani.moodify.util.userCredential
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

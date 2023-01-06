@@ -2,14 +2,10 @@ package com.ajailani.moodify.data
 
 import android.content.Context
 import com.ajailani.moodify.data.remote.data_source.MoodRemoteDataSource
-import com.ajailani.moodify.data.remote.dto.ActivityDto
 import com.ajailani.moodify.data.remote.dto.MoodItemDto
 import com.ajailani.moodify.data.remote.dto.response.BaseResponse
-import com.ajailani.moodify.data.repository.ActivityRepositoryImpl
 import com.ajailani.moodify.data.repository.MoodRepositoryImpl
 import com.ajailani.moodify.domain.repository.MoodRepository
-import com.ajailani.moodify.util.activities
-import com.ajailani.moodify.util.activitiesDto
 import com.ajailani.moodify.util.moods
 import com.ajailani.moodify.util.moodsDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,7 +17,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner

@@ -8,13 +8,11 @@ import com.ajailani.moodify.data.repository.ActivityRepositoryImpl
 import com.ajailani.moodify.domain.repository.ActivityRepository
 import com.ajailani.moodify.util.activities
 import com.ajailani.moodify.util.activitiesDto
-import com.ajailani.moodify.util.userCredentialDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
