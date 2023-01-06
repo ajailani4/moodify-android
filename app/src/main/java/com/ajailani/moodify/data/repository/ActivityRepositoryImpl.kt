@@ -21,7 +21,7 @@ class ActivityRepositoryImpl @Inject constructor(
             when (response.code()) {
                 200 -> emit(Resource.Success(response.body()?.data?.map { activityDto ->
                     activityDto.toActivity()
-                }?.slice(0..2)))
+                }))
 
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
