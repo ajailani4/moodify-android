@@ -34,4 +34,6 @@
     <string name="okay">Biasa Saja</string>
     <string name="bad">Buruk</string>
     <string name="terrible">Buruk Sekali</string>
+    <string name="no_recommendation_yet">Belum ada rekomendasi</string>
+    <string name="no_moods">Kamu belum memiliki catatan mood.\nAyo catat mood kamu</string>
 </resources>

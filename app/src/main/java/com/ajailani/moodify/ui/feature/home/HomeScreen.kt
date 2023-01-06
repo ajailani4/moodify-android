@@ -25,6 +25,7 @@ import com.ajailani.moodify.R
 import com.ajailani.moodify.domain.model.Activity
 import com.ajailani.moodify.domain.model.MoodItem
 import com.ajailani.moodify.ui.common.UIState
+import com.ajailani.moodify.ui.common.component.CaptionImage
 import com.ajailani.moodify.ui.common.component.MoodCard
 import com.ajailani.moodify.ui.feature.home.component.ActivityCard
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -147,14 +148,22 @@ private fun RecommendedActivitiesSection(
                 onEvent(HomeEvent.OnSwipeRefresh(false))
 
                 recommendedActivitiesState.data?.let { activities ->
-                    activities.forEach { activity ->
-                        ActivityCard(
-                            activity = activity
-                        )
+                    if (activities.isNotEmpty()) {
+                        activities.forEach { activity ->
+                            ActivityCard(
+                                activity = activity
+                            )
 
-                        if (activity != activities.last()) {
-                            Spacer(modifier = Modifier.height(15.dp))
+                            if (activity != activities.last()) {
+                                Spacer(modifier = Modifier.height(15.dp))
+                            }
                         }
+                    } else {
+                        CaptionImage(
+                            modifier = Modifier.size(170.dp),
+                            image = painterResource(id = R.drawable.illustration_no_data),
+                            caption = stringResource(id = R.string.no_recommendation_yet)
+                        )
                     }
                 }
             }
@@ -224,12 +233,20 @@ private fun MyMoodsSection(
                 onEvent(HomeEvent.OnSwipeRefresh(false))
 
                 moodsState.data?.let { moods ->
-                    moods.forEach { moodItem ->
-                        MoodCard(
-                            moodItem = moodItem,
-                            onClick = {}
+                    if (moods.isNotEmpty()) {
+                        moods.forEach { moodItem ->
+                            MoodCard(
+                                moodItem = moodItem,
+                                onClick = {}
+                            )
+                            Spacer(modifier = Modifier.height(20.dp))
+                        }
+                    } else {
+                        CaptionImage(
+                            modifier = Modifier.size(170.dp),
+                            image = painterResource(id = R.drawable.illustration_add_mood),
+                            caption = stringResource(id = R.string.no_moods)
                         )
-                        Spacer(modifier = Modifier.height(20.dp))
                     }
                 }
             }

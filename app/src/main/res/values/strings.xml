@@ -33,4 +33,6 @@
     <string name="okay">Okay</string>
     <string name="bad">Bad</string>
     <string name="terrible">Terrible</string>
+    <string name="no_recommendation_yet">No recommendations yet</string>
+    <string name="no_moods">You don\'t have mood notes yet.\nLet\'s record your moods</string>
 </resources>
