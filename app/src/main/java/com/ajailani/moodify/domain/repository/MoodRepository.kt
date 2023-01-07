@@ -11,4 +11,9 @@ interface MoodRepository {
         month: Int?,
         year: Int?
     ): Flow<Resource<List<MoodItem>>>
+
+    fun getPagingMoods(
+        month: Int?,
+        year: Int?
+    ): Flow<Resource<List<MoodItem>>>
 }
