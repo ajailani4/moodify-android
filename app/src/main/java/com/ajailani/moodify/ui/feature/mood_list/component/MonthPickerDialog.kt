@@ -118,6 +118,7 @@ fun MonthPickerDialog(
         },
         confirmButton = {
             TextButton(onClick = {
+                onEvent(MoodListEvent.GetPagingMoods)
                 onEvent(MoodListEvent.OnMonthPickerDialogVisChanged(false))
             }) {
                 Text(text = stringResource(id = R.string.ok))

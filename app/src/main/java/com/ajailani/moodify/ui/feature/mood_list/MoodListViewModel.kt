@@ -4,11 +4,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.ajailani.moodify.domain.model.MoodItem
+import com.ajailani.moodify.domain.use_case.mood.GetPagingMoodsUseCase
 import com.ajailani.moodify.util.calMonth
 import com.ajailani.moodify.util.calYear
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MoodListViewModel : ViewModel() {
+@HiltViewModel
+class MoodListViewModel @Inject constructor(
+    private val getPagingMoodsUseCase: GetPagingMoodsUseCase
+) : ViewModel() {
+    private var _pagingMoods = MutableStateFlow<PagingData<MoodItem>>(PagingData.empty())
+    val pagingMoods = _pagingMoods.asStateFlow()
+
     var monthPickerDialogVis by mutableStateOf(false)
         private set
 
@@ -25,8 +40,14 @@ class MoodListViewModel : ViewModel() {
     var selectedYear by mutableStateOf(calYear)
         private set
 
+    init {
+        getPagingMoods()
+    }
+
     fun onEvent(event: MoodListEvent) {
         when (event) {
+            MoodListEvent.GetPagingMoods -> getPagingMoods()
+
             is MoodListEvent.OnMonthPickerDialogVisChanged -> monthPickerDialogVis = event.isVisible
 
             is MoodListEvent.OnMonthMenuExpanded -> monthMenuExpanded = event.isExpanded
@@ -57,6 +78,17 @@ class MoodListViewModel : ViewModel() {
                 } else {
                     selectedMonth++
                 }
+            }
+        }
+    }
+
+    private fun getPagingMoods() {
+        viewModelScope.launch {
+            getPagingMoodsUseCase(
+                month = selectedMonth + 1,
+                year = selectedYear
+            ).cachedIn(viewModelScope).collect {
+                _pagingMoods.value = it
             }
         }
     }
