@@ -69,7 +69,7 @@ fun MoodCard(
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = "${Formatter.formatDate(moodItem.date)}  •  ${moodItem.time}",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodySmall
                     )
                 }
             }
