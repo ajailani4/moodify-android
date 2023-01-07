@@ -37,7 +37,7 @@
     <string name="no_moods">You don\'t have mood notes yet.\nLet\'s record your moods</string>
 
     <string name="select_month">Select Month</string>
-    <string name="select">Select</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string-array name="months">
         <item>January</item>

@@ -120,7 +120,7 @@ fun MonthPickerDialog(
             TextButton(onClick = {
                 onEvent(MoodListEvent.OnMonthPickerDialogVisChanged(false))
             }) {
-                Text(text = stringResource(id = R.string.select))
+                Text(text = stringResource(id = R.string.ok))
             }
         },
         dismissButton = {
