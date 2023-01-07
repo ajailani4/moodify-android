@@ -68,7 +68,10 @@ fun MoodListScreen(
                 ) {
                     CircleButton(
                         icon = Icons.Default.ChevronLeft,
-                        onClick = {}
+                        contentDescription = "Previous month button",
+                        onClick = {
+                            onEvent(MoodListEvent.OnPreviousMonthClicked)
+                        }
                     )
                     ClickableText(
                         text = buildAnnotatedString {
@@ -83,7 +86,10 @@ fun MoodListScreen(
                     )
                     CircleButton(
                         icon = Icons.Default.ChevronRight,
-                        onClick = {}
+                        contentDescription = "Next month button",
+                        onClick = {
+                            onEvent(MoodListEvent.OnNextMonthClicked)
+                        }
                     )
                 }
             }

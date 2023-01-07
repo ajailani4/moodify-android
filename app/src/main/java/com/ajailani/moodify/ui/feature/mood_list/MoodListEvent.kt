@@ -6,4 +6,6 @@ sealed class MoodListEvent {
     data class OnYearMenuExpanded(val isExpanded: Boolean) : MoodListEvent()
     data class OnSelectedMonthChanged(val month: Int) : MoodListEvent()
     data class OnSelectedYearChanged(val year: Int) : MoodListEvent()
+    object OnPreviousMonthClicked : MoodListEvent()
+    object OnNextMonthClicked : MoodListEvent()
 }

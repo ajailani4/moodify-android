@@ -18,6 +18,7 @@ class MoodListViewModel : ViewModel() {
     var yearMenuExpanded by mutableStateOf(false)
         private set
 
+    // Month index range is 0 until 11
     var selectedMonth by mutableStateOf(calMonth)
         private set
 
@@ -35,6 +36,28 @@ class MoodListViewModel : ViewModel() {
             is MoodListEvent.OnSelectedMonthChanged -> selectedMonth = event.month
 
             is MoodListEvent.OnSelectedYearChanged -> selectedYear = event.year
+
+            MoodListEvent.OnPreviousMonthClicked -> {
+                if (selectedMonth == 0) {
+                    if (selectedYear - 1 != 2019) {
+                        selectedMonth = 11
+                        selectedYear--
+                    }
+                } else {
+                    selectedMonth--
+                }
+            }
+
+            MoodListEvent.OnNextMonthClicked -> {
+                if (selectedMonth == 11) {
+                    if (selectedYear + 1 != 2051) {
+                        selectedMonth = 0
+                        selectedYear++
+                    }
+                } else {
+                    selectedMonth++
+                }
+            }
         }
     }
 }

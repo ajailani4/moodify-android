@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CircleButton(
     icon: ImageVector,
+    contentDescription: String?,
     onClick: () -> Unit
 ) {
     Box(
@@ -34,7 +35,7 @@ fun CircleButton(
         Icon(
             modifier = Modifier.padding(5.dp),
             imageVector = icon,
-            contentDescription = "Previous icon"
+            contentDescription = contentDescription
         )
     }
 }
