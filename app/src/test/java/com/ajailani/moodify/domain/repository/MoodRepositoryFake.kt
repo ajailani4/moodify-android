@@ -1,5 +1,6 @@
 package com.ajailani.moodify.domain.repository
 
+import androidx.paging.PagingData
 import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.domain.model.MoodItem
 import com.ajailani.moodify.util.ResourceType
@@ -21,6 +22,10 @@ class MoodRepositoryFake : MoodRepository {
 
             ResourceType.Error -> flowOf(Resource.Error(null))
         }
+
+    override fun getPagingMoods(month: Int?, year: Int?): Flow<PagingData<MoodItem>> {
+        TODO("Not yet implemented")
+    }
 
     fun setResourceType(type: ResourceType) {
         resourceType = type

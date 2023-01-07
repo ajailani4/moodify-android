@@ -5,7 +5,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
 val Typography = Typography(
     displayLarge = TextStyle(
         fontFamily = poppinsFamily,
@@ -40,7 +39,7 @@ val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 28.sp
+        fontSize = 22.sp
     ),
     titleMedium = TextStyle(
         fontFamily = poppinsFamily,

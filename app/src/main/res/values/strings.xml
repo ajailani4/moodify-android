@@ -35,4 +35,22 @@
     <string name="terrible">Terrible</string>
     <string name="no_recommendation_yet">No recommendations yet</string>
     <string name="no_moods">You don\'t have mood notes yet.\nLet\'s record your moods</string>
+
+    <string name="select_month">Select Month</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 </resources>

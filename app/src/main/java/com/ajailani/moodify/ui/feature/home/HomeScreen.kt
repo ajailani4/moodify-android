@@ -35,7 +35,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel = hiltViewModel()
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    onNavigateToMoodList: () -> Unit
 ) {
     val onEvent = homeViewModel::onEvent
     val recommendedActivitiesState = homeViewModel.recommendedActivitiesState
@@ -94,7 +95,7 @@ fun HomeScreen(
                         onEvent = onEvent,
                         moodsState = moodsState,
                         snackbarHostState = snackbarHostState,
-                        onViewAllClicked = {}
+                        onViewAllClicked = onNavigateToMoodList
                     )
                 }
             }
