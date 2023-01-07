@@ -40,6 +40,9 @@ class MoodListViewModel @Inject constructor(
     var selectedYear by mutableStateOf(calYear)
         private set
 
+    var swipeRefreshing by mutableStateOf(false)
+        private set
+
     init {
         getPagingMoods()
     }
@@ -79,6 +82,8 @@ class MoodListViewModel @Inject constructor(
                     selectedMonth++
                 }
             }
+
+            is MoodListEvent.OnSwipeRefresh -> swipeRefreshing = event.isRefreshed
         }
     }
 

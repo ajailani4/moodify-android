@@ -9,4 +9,5 @@ sealed class MoodListEvent {
     data class OnSelectedYearChanged(val year: Int) : MoodListEvent()
     object OnPreviousMonthClicked : MoodListEvent()
     object OnNextMonthClicked : MoodListEvent()
+    data class OnSwipeRefresh(val isRefreshed: Boolean) : MoodListEvent()
 }
