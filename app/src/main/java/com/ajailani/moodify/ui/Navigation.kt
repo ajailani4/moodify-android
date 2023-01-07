@@ -56,7 +56,9 @@ fun Navigation(
         }
 
         composable(Screen.MoodList.route) {
-            MoodListScreen()
+            MoodListScreen(
+                onNavigateUp = { navController.navigateUp() }
+            )
         }
 
         composable(Screen.Home.route) {

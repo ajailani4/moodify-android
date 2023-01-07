@@ -36,4 +36,22 @@
     <string name="terrible">Buruk Sekali</string>
     <string name="no_recommendation_yet">Belum ada rekomendasi</string>
     <string name="no_moods">Kamu belum memiliki catatan mood.\nAyo catat mood kamu</string>
+
+    <string name="select_month">Pilih Bulan</string>
+    <string name="select">Pilih</string>
+    <string name="cancel">Batal</string>
+    <string-array name="months">
+        <item>Januari</item>
+        <item>Februari</item>
+        <item>Maret</item>
+        <item>April</item>
+        <item>Mei</item>
+        <item>Juni</item>
+        <item>Juli</item>
+        <item>Agustus</item>
+        <item>September</item>
+        <item>Oktober</item>
+        <item>November</item>
+        <item>Desember</item>
+    </string-array>
 </resources>
