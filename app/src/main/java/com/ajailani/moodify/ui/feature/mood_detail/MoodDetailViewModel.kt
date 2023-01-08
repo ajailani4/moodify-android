@@ -25,6 +25,10 @@ class MoodDetailViewModel @Inject constructor(
     var moodDetailState by mutableStateOf<UIState<Mood>>(UIState.Idle)
         private set
 
+    init {
+        getMoodDetail()
+    }
+
     fun onEvent(event: MoodDetailEvent) {
         when (event) {
             MoodDetailEvent.GetMoodDetail -> getMoodDetail()

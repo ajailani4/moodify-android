@@ -58,4 +58,5 @@
     <string name="activity_that_make">Activity that make this feeling</string>
     <string name="activity">Activity</string>
     <string name="note">Note</string>
+    <string name="no_note">No note</string>
 </resources>

@@ -2,8 +2,10 @@ package com.ajailani.moodify.ui
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.ajailani.moodify.ui.feature.home.HomeScreen
 import com.ajailani.moodify.ui.feature.login.LoginScreen
 import com.ajailani.moodify.ui.feature.mood_detail.MoodDetailScreen
@@ -58,17 +60,36 @@ fun Navigation(
 
         composable(Screen.MoodList.route) {
             MoodListScreen(
+                onNavigateUp = { navController.navigateUp() },
+                onNavigateToMoodDetail = { moodId ->
+                    navController.navigate(
+                        Screen.MoodDetail.route + "?moodId=$moodId"
+                    )
+                }
+            )
+        }
+
+        composable(
+            route = Screen.MoodDetail.route + "?moodId={moodId}",
+            arguments = listOf(
+                navArgument("moodId") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            MoodDetailScreen(
                 onNavigateUp = { navController.navigateUp() }
             )
         }
 
-        composable(Screen.MoodDetail.route) {
-            MoodDetailScreen()
-        }
-
         composable(Screen.Home.route) {
             HomeScreen(
-                onNavigateToMoodList = { navController.navigate(Screen.MoodList.route) }
+                onNavigateToMoodList = { navController.navigate(Screen.MoodList.route) },
+                onNavigateToMoodDetail = { moodId ->
+                    navController.navigate(
+                        Screen.MoodDetail.route + "?moodId=$moodId"
+                    )
+                }
             )
         }
 

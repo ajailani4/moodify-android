@@ -7,7 +7,7 @@ data class MoodDto(
     val mood: Int,
     @field:Json(name = "activityName")
     val activity: String,
-    val note: String,
+    val note: String?,
     val date: String,
     val time: String
 )

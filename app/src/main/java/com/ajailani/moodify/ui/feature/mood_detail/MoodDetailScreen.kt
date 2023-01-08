@@ -32,6 +32,7 @@ import com.ajailani.moodify.util.Formatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoodDetailScreen(
+    onNavigateUp: () -> Unit,
     moodDetailViewModel: MoodDetailViewModel = hiltViewModel()
 ) {
     val moodDetailState = moodDetailViewModel.moodDetailState
@@ -46,7 +47,7 @@ fun MoodDetailScreen(
                     Text(text = stringResource(id = R.string.mood_detail))
                 },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onNavigateUp) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back icon"
@@ -69,20 +70,18 @@ fun MoodDetailScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            Column(
-                modifier = Modifier
-                    .padding(20.dp)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                when (moodDetailState) {
-                    UIState.Loading -> {
-                        Box(contentAlignment = Alignment.Center) {
-                            CircularProgressIndicator()
-                        }
-                    }
+            when (moodDetailState) {
+                UIState.Loading -> {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
 
-                    is UIState.Success -> {
-                        moodDetailState.data?.let { mood ->
+                is UIState.Success -> {
+                    moodDetailState.data?.let { mood ->
+                        Column(
+                            modifier = Modifier
+                                .padding(20.dp)
+                                .verticalScroll(rememberScrollState())
+                        ) {
                             Image(
                                 modifier = Modifier
                                     .size(100.dp)
@@ -132,7 +131,7 @@ fun MoodDetailScreen(
                             Spacer(modifier = Modifier.height(20.dp))
                             SectionCard(title = stringResource(id = R.string.note)) {
                                 Text(
-                                    text = mood.note,
+                                    text = mood.note ?: stringResource(id = R.string.no_note),
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                             }
@@ -143,25 +142,25 @@ fun MoodDetailScreen(
                             )
                         }
                     }
-
-                    is UIState.Fail -> {
-                        LaunchedEffect(snackbarHostState) {
-                            moodDetailState.message?.let {
-                                snackbarHostState.showSnackbar(it)
-                            }
-                        }
-                    }
-
-                    is UIState.Error -> {
-                        LaunchedEffect(snackbarHostState) {
-                            moodDetailState.message?.let {
-                                snackbarHostState.showSnackbar(it)
-                            }
-                        }
-                    }
-
-                    else -> {}
                 }
+
+                is UIState.Fail -> {
+                    LaunchedEffect(snackbarHostState) {
+                        moodDetailState.message?.let {
+                            snackbarHostState.showSnackbar(it)
+                        }
+                    }
+                }
+
+                is UIState.Error -> {
+                    LaunchedEffect(snackbarHostState) {
+                        moodDetailState.message?.let {
+                            snackbarHostState.showSnackbar(it)
+                        }
+                    }
+                }
+
+                else -> {}
             }
         }
     }

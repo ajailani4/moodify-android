@@ -59,4 +59,5 @@
     <string name="activity_that_make">Aktivitas yang mempengaruhi perasaan ini</string>
     <string name="activity">Aktivitas</string>
     <string name="note">Catatan</string>
+    <string name="no_note">Tidak ada catatan</string>
 </resources>
