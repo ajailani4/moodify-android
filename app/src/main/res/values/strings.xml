@@ -53,4 +53,9 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+
+    <string name="mood_detail">Mood Detail</string>
+    <string name="activity_that_make">Activity that make this feeling</string>
+    <string name="activity">Activity</string>
+    <string name="note">Note</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ajailani.moodify.ui.feature.home.HomeScreen
 import com.ajailani.moodify.ui.feature.login.LoginScreen
+import com.ajailani.moodify.ui.feature.mood_detail.MoodDetailScreen
 import com.ajailani.moodify.ui.feature.mood_list.MoodListScreen
 import com.ajailani.moodify.ui.feature.register.RegisterScreen
 import com.ajailani.moodify.ui.feature.welcome.WelcomeScreen
@@ -59,6 +60,10 @@ fun Navigation(
             MoodListScreen(
                 onNavigateUp = { navController.navigateUp() }
             )
+        }
+
+        composable(Screen.MoodDetail.route) {
+            MoodDetailScreen()
         }
 
         composable(Screen.Home.route) {
