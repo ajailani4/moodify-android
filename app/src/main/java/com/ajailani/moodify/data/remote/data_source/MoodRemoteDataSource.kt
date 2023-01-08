@@ -17,4 +17,6 @@ class MoodRemoteDataSource @Inject constructor(
         month = month,
         year = year
     )
+
+    suspend fun getMoodDetail(id: String) = moodService.getMoodDetail(id)
 }
