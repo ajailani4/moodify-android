@@ -7,7 +7,7 @@ fun MoodDto.toMood() =
     Mood(
         id = id,
         mood = mood,
-        activity = activity,
+        activity = activity.toActivity(),
         note = note,
         date = date,
         time = time

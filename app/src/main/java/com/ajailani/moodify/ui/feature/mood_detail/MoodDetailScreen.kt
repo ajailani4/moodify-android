@@ -115,15 +115,18 @@ fun MoodDetailScreen(
                                             .background(color = MaterialTheme.colorScheme.primary),
                                         contentAlignment = Alignment.Center
                                     ) {
-                                        Image(
+                                        AsyncImage(
                                             modifier = Modifier.size(21.dp),
-                                            painter = painterResource(id = R.drawable.moodify_logo),
+                                            model = ImageRequest.Builder(LocalContext.current)
+                                                .data(mood.activity.icon)
+                                                .build(),
+                                            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onPrimary),
                                             contentDescription = "Activity icon"
                                         )
                                     }
                                     Spacer(modifier = Modifier.width(15.dp))
                                     Text(
-                                        text = mood.activity,
+                                        text = mood.activity.name,
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                 }
