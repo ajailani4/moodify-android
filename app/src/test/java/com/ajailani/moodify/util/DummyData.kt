@@ -1,6 +1,7 @@
 package com.ajailani.moodify.util
 
 import com.ajailani.moodify.data.remote.dto.ActivityDto
+import com.ajailani.moodify.data.remote.dto.MoodDto
 import com.ajailani.moodify.data.remote.dto.MoodItemDto
 import com.ajailani.moodify.data.remote.dto.UserCredentialDto
 import com.ajailani.moodify.domain.model.Activity
@@ -87,6 +88,19 @@ val mood = Mood(
     mood = 4,
     note = "This is a note",
     activity = Activity(
+        name = "Mendengarkan musik",
+        icon = "url"
+    ),
+    date = "2023-01-09",
+    time = "11:20"
+)
+
+val moodDto = MoodDto(
+    id = "abc",
+    mood = 4,
+    note = "This is a note",
+    activity = ActivityDto(
+        id = "abc",
         name = "Mendengarkan musik",
         icon = "url"
     ),
