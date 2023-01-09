@@ -1,7 +1,6 @@
 package com.ajailani.moodify.domain.use_case.mood
 
 import com.ajailani.moodify.data.Resource
-import com.ajailani.moodify.domain.model.Activity
 import com.ajailani.moodify.domain.model.MoodItem
 import com.ajailani.moodify.domain.repository.MoodRepositoryFake
 import com.ajailani.moodify.util.ResourceType

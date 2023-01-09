@@ -26,7 +26,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.ajailani.moodify.R
 import com.ajailani.moodify.ui.common.UIState
-import com.ajailani.moodify.ui.feature.home.HomeEvent
 import com.ajailani.moodify.util.Formatter
 
 @OptIn(ExperimentalMaterial3Api::class)
