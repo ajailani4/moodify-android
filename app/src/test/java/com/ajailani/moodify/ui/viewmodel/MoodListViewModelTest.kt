@@ -5,14 +5,13 @@ import androidx.paging.PagingData
 import com.ajailani.moodify.domain.use_case.mood.GetPagingMoodsUseCase
 import com.ajailani.moodify.ui.feature.mood_list.MoodListEvent
 import com.ajailani.moodify.ui.feature.mood_list.MoodListViewModel
+import com.ajailani.moodify.util.DiffCallback
 import com.ajailani.moodify.util.ListCallback
 import com.ajailani.moodify.util.TestCoroutineRule
 import com.ajailani.moodify.util.moods
-import com.ajailani.moodify.util.DiffCallback
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

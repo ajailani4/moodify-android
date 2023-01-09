@@ -21,6 +21,7 @@ sealed class Screen(
     object Register : Screen("register_screen")
     object Login : Screen("login_screen")
     object MoodList : Screen("mood_list_screen")
+    object MoodDetail : Screen("mood_detail_screen")
 
     // Bottom Navigation Bar menu
     object Home : Screen(

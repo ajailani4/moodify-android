@@ -2,10 +2,14 @@ package com.ajailani.moodify.data
 
 import android.content.Context
 import com.ajailani.moodify.data.remote.data_source.MoodRemoteDataSource
+import com.ajailani.moodify.data.remote.dto.MoodDto
 import com.ajailani.moodify.data.remote.dto.MoodItemDto
 import com.ajailani.moodify.data.remote.dto.response.BaseResponse
 import com.ajailani.moodify.data.repository.MoodRepositoryImpl
+import com.ajailani.moodify.domain.model.Mood
 import com.ajailani.moodify.domain.repository.MoodRepository
+import com.ajailani.moodify.util.mood
+import com.ajailani.moodify.util.moodDto
 import com.ajailani.moodify.util.moods
 import com.ajailani.moodify.util.moodsDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,6 +22,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.anyOrNull
@@ -102,6 +107,48 @@ class MoodRepositoryTest {
             assertEquals(
                 "Resource should be error",
                 Resource.Error<List<MoodItemDto>>(),
+                actualResource
+            )
+        }
+
+    @Test
+    fun `Get mood detail should return success resource`() =
+        runTest(UnconfinedTestDispatcher()) {
+            val response = Response.success(
+                200,
+                BaseResponse(
+                    code = 200,
+                    status = "OK",
+                    data = moodDto
+                )
+            )
+
+            doReturn(response).`when`(moodRemoteDataSource).getMoodDetail(anyString())
+
+            val actualResource = moodRepository.getMoodDetail("abc").first()
+
+            assertEquals(
+                "Resource should be success",
+                Resource.Success(mood),
+                actualResource
+            )
+        }
+
+    @Test
+    fun `Get mood detail should return error resource`() =
+        runTest(UnconfinedTestDispatcher()) {
+            val response = Response.error<MoodDto>(
+                400,
+                "".toResponseBody()
+            )
+
+            doReturn(response).`when`(moodRemoteDataSource).getMoodDetail(anyString())
+
+            val actualResource = moodRepository.getMoodDetail("abc").first()
+
+            assertEquals(
+                "Resource should be error",
+                Resource.Error<Mood>(),
                 actualResource
             )
         }

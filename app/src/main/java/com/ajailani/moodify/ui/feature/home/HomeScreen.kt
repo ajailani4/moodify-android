@@ -36,7 +36,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
-    onNavigateToMoodList: () -> Unit
+    onNavigateToMoodList: () -> Unit,
+    onNavigateToMoodDetail: (String) -> Unit
 ) {
     val onEvent = homeViewModel::onEvent
     val recommendedActivitiesState = homeViewModel.recommendedActivitiesState
@@ -95,7 +96,8 @@ fun HomeScreen(
                         onEvent = onEvent,
                         moodsState = moodsState,
                         snackbarHostState = snackbarHostState,
-                        onViewAllClicked = onNavigateToMoodList
+                        onViewAllClicked = onNavigateToMoodList,
+                        onNavigateToMoodDetail = onNavigateToMoodDetail
                     )
                 }
             }
@@ -199,7 +201,8 @@ private fun MyMoodsSection(
     onEvent: (HomeEvent) -> Unit,
     moodsState: UIState<List<MoodItem>>,
     snackbarHostState: SnackbarHostState,
-    onViewAllClicked: () -> Unit
+    onViewAllClicked: () -> Unit,
+    onNavigateToMoodDetail: (String) -> Unit
 ) {
     Column {
         Row(
@@ -238,7 +241,7 @@ private fun MyMoodsSection(
                         moods.forEach { moodItem ->
                             MoodCard(
                                 moodItem = moodItem,
-                                onClick = {}
+                                onClick = { onNavigateToMoodDetail(moodItem.id) }
                             )
                             Spacer(modifier = Modifier.height(20.dp))
                         }

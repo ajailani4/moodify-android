@@ -33,7 +33,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @Composable
 fun MoodListScreen(
     moodListViewModel: MoodListViewModel = hiltViewModel(),
-    onNavigateUp: () -> Unit
+    onNavigateUp: () -> Unit,
+    onNavigateToMoodDetail: (String) -> Unit
 ) {
     val onEvent = moodListViewModel::onEvent
     val pagingMoods = moodListViewModel.pagingMoods.collectAsLazyPagingItems()
@@ -130,7 +131,7 @@ fun MoodListScreen(
                         moodItem?.let {
                             MoodCard(
                                 moodItem = it,
-                                onClick = {}
+                                onClick = { onNavigateToMoodDetail(it.id) }
                             )
                             Spacer(modifier = Modifier.height(20.dp))
                         }

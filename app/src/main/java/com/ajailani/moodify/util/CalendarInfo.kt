@@ -1,6 +1,6 @@
 package com.ajailani.moodify.util
 
-import java.util.Calendar
+import java.util.*
 
 val calendar: Calendar = Calendar.getInstance()
 val calYear = calendar.get(Calendar.YEAR)
