@@ -4,6 +4,7 @@ import com.ajailani.moodify.data.remote.dto.ActivityDto
 import com.ajailani.moodify.data.remote.dto.MoodItemDto
 import com.ajailani.moodify.data.remote.dto.UserCredentialDto
 import com.ajailani.moodify.domain.model.Activity
+import com.ajailani.moodify.domain.model.Mood
 import com.ajailani.moodify.domain.model.MoodItem
 import com.ajailani.moodify.domain.model.UserCredential
 
@@ -63,6 +64,7 @@ val moods = listOf(
         time = "10:00"
     )
 )
+
 val moodsDto = listOf(
     MoodItemDto(
         id = "1",
@@ -78,4 +80,16 @@ val moodsDto = listOf(
         date = "2023-01-05",
         time = "10:00"
     )
+)
+
+val mood = Mood(
+    id = "abc",
+    mood = 4,
+    note = "This is a note",
+    activity = Activity(
+        name = "Mendengarkan musik",
+        icon = "url"
+    ),
+    date = "2023-01-09",
+    time = "11:20"
 )
