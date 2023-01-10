@@ -17,7 +17,9 @@ import com.ajailani.moodify.ui.feature.add_edit_mood.component.MoodChoice
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddEditMoodScreen() {
+fun AddEditMoodScreen(
+    onNavigateUp: () -> Unit
+) {
     // Currently mood choices only available in English,
     // because the mood choices UI need to be adjusted to the screen width
     val moodChoices = listOf(
@@ -36,7 +38,7 @@ fun AddEditMoodScreen() {
             TopAppBar(
                 title = {},
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onNavigateUp) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back icon"

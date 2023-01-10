@@ -37,7 +37,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
     onNavigateToMoodList: () -> Unit,
-    onNavigateToMoodDetail: (String) -> Unit
+    onNavigateToMoodDetail: (String) -> Unit,
+    onNavigateToAddEditMood: () -> Unit
 ) {
     val onEvent = homeViewModel::onEvent
     val recommendedActivitiesState = homeViewModel.recommendedActivitiesState
@@ -49,7 +50,7 @@ fun HomeScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
+            FloatingActionButton(onClick = onNavigateToAddEditMood) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add mood icon"

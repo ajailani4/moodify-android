@@ -84,7 +84,9 @@ fun Navigation(
         }
 
         composable(Screen.AddEditMood.route) {
-            AddEditMoodScreen()
+            AddEditMoodScreen(
+                onNavigateUp = { navController.navigateUp() }
+            )
         }
 
         // Bottom Nav Bar Menu Routes
@@ -95,7 +97,8 @@ fun Navigation(
                     navController.navigate(
                         Screen.MoodDetail.route + "?moodId=$moodId"
                     )
-                }
+                },
+                onNavigateToAddEditMood = { navController.navigate(Screen.AddEditMood.route) }
             )
         }
 
