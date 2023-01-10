@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.ajailani.moodify.ui.feature.add_edit_mood.AddEditMoodScreen
 import com.ajailani.moodify.ui.feature.home.HomeScreen
 import com.ajailani.moodify.ui.feature.login.LoginScreen
 import com.ajailani.moodify.ui.feature.mood_detail.MoodDetailScreen
@@ -82,6 +83,11 @@ fun Navigation(
             )
         }
 
+        composable(Screen.AddEditMood.route) {
+            AddEditMoodScreen()
+        }
+
+        // Bottom Nav Bar Menu Routes
         composable(Screen.Home.route) {
             HomeScreen(
                 onNavigateToMoodList = { navController.navigate(Screen.MoodList.route) },
