@@ -10,6 +10,7 @@ import com.ajailani.moodify.data.mapper.toMood
 import com.ajailani.moodify.data.mapper.toMoodItem
 import com.ajailani.moodify.data.remote.data_source.MoodRemoteDataSource
 import com.ajailani.moodify.data.remote.data_source.PagingDataSource
+import com.ajailani.moodify.data.remote.dto.request.AddEditMoodRequest
 import com.ajailani.moodify.domain.repository.MoodRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flow
@@ -66,6 +67,31 @@ class MoodRepositoryImpl @Inject constructor(
 
             when (response.code()) {
                 200 -> emit(Resource.Success(response.body()?.data?.toMood()))
+
+                else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
+            }
+        }
+
+    override fun addMood(
+        mood: Int,
+        activityName: String,
+        note: String?,
+        date: String,
+        time: String
+    ) =
+        flow {
+            val response = moodRemoteDataSource.addMood(
+                AddEditMoodRequest(
+                    mood = mood,
+                    activityName = activityName,
+                    note = note,
+                    date = date,
+                    time = time
+                )
+            )
+
+            when (response.code()) {
+                201 -> emit(Resource.Success(response.body()?.data))
 
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
