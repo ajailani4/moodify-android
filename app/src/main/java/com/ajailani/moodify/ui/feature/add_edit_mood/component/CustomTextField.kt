@@ -39,7 +39,7 @@ fun CustomTextField(
         value = value,
         onValueChange = onValueChange,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-        textStyle = MaterialTheme.typography.bodyLarge.copy(
+        textStyle = MaterialTheme.typography.bodyMedium.copy(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         ),
         decorationBox = { innerTextField ->
@@ -50,7 +50,8 @@ fun CustomTextField(
                 if (value.isEmpty() && !isFocused) {
                     Text(
                         text = stringResource(id = R.string.insert_a_note),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
 
