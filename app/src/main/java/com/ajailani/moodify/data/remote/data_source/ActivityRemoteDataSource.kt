@@ -6,5 +6,5 @@ import javax.inject.Inject
 class ActivityRemoteDataSource @Inject constructor(
     private val activityService: ActivityService
 ) {
-    suspend fun getActivities(recommended: Boolean) = activityService.getActivities(recommended)
+    suspend fun getActivities(recommended: Boolean?) = activityService.getActivities(recommended)
 }

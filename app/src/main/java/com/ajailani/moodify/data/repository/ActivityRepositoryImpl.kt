@@ -14,7 +14,7 @@ class ActivityRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val activityRemoteDataSource: ActivityRemoteDataSource
 ) : ActivityRepository {
-    override fun getActivities(recommended: Boolean) =
+    override fun getActivities(recommended: Boolean?) =
         flow {
             val response = activityRemoteDataSource.getActivities(recommended)
 

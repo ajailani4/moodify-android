@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOf
 class ActivityRepositoryFake : ActivityRepository {
     private lateinit var resourceType: ResourceType
 
-    override fun getActivities(recommended: Boolean): Flow<Resource<List<Activity>>> =
+    override fun getActivities(recommended: Boolean?): Flow<Resource<List<Activity>>> =
         when (resourceType) {
             ResourceType.Success -> flowOf(Resource.Success(activities))
 

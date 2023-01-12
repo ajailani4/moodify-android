@@ -9,6 +9,6 @@ import retrofit2.http.Query
 interface ActivityService {
     @GET("activities")
     suspend fun getActivities(
-        @Query("recommended") recommended: Boolean
+        @Query("recommended") recommended: Boolean?
     ): Response<BaseResponse<List<ActivityDto>>>
 }
