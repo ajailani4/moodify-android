@@ -27,5 +27,5 @@ interface MoodRepository {
         note: String?,
         date: String,
         time: String
-    )
+    ): Flow<Resource<Any>>
 }
