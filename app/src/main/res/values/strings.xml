@@ -62,4 +62,6 @@
     
     <string name="how_are_you">How are you?</string>
     <string name="what_activity">What activity make this feeling?</string>
+    <string name="insert_a_note">Insert a note</string>
+    <string name="save">Save</string>
 </resources>
