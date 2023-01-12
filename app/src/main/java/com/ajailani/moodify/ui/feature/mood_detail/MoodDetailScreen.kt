@@ -67,6 +67,7 @@ fun MoodDetailScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(innerPadding)
         ) {
             when (moodDetailState) {
@@ -77,9 +78,7 @@ fun MoodDetailScreen(
                 is UIState.Success -> {
                     moodDetailState.data?.let { mood ->
                         Column(
-                            modifier = Modifier
-                                .padding(20.dp)
-                                .verticalScroll(rememberScrollState())
+                            modifier = Modifier.padding(20.dp)
                         ) {
                             Image(
                                 modifier = Modifier
