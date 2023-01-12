@@ -166,7 +166,7 @@ fun AddEditMoodScreen(
                     Spacer(modifier = Modifier.height(25.dp))
                     Text(
                         text = stringResource(id = R.string.activity),
-                        style = MaterialTheme.typography.titleSmall
+                        style = MaterialTheme.typography.titleMedium
                     )
                     Spacer(modifier = Modifier.height(10.dp))
 
@@ -211,7 +211,7 @@ fun AddEditMoodScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         text = stringResource(id = R.string.note),
-                        style = MaterialTheme.typography.titleSmall
+                        style = MaterialTheme.typography.titleMedium
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     CustomTextField(
