@@ -9,8 +9,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.ajailani.moodify.domain.model.MoodItem
 import com.ajailani.moodify.domain.use_case.mood.GetPagingMoodsUseCase
-import com.ajailani.moodify.util.calMonth
-import com.ajailani.moodify.util.calYear
+import com.ajailani.moodify.util.currentMonth
+import com.ajailani.moodify.util.currentYear
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,10 +34,10 @@ class MoodListViewModel @Inject constructor(
         private set
 
     // Month index range is 0 until 11
-    var selectedMonth by mutableStateOf(calMonth)
+    var selectedMonth by mutableStateOf(currentMonth)
         private set
 
-    var selectedYear by mutableStateOf(calYear)
+    var selectedYear by mutableStateOf(currentYear)
         private set
 
     var swipeRefreshing by mutableStateOf(false)

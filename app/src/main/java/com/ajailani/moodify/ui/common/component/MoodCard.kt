@@ -34,12 +34,12 @@ fun MoodCard(
                     .clip(CircleShape),
                 painter = painterResource(
                     id = when (moodItem.mood) {
-                        1 -> R.drawable.ic_terrible_mood
-                        2 -> R.drawable.ic_bad_mood
-                        3 -> R.drawable.ic_okay_mood
-                        4 -> R.drawable.ic_good_mood
-                        5 -> R.drawable.ic_excellent_mood
-                        else -> R.drawable.ic_okay_mood
+                        1 -> R.drawable.ic_filled_terrible_mood
+                        2 -> R.drawable.ic_filled_bad_mood
+                        3 -> R.drawable.ic_filled_okay_mood
+                        4 -> R.drawable.ic_filled_good_mood
+                        5 -> R.drawable.ic_filled_excellent_mood
+                        else -> R.drawable.ic_filled_okay_mood
                     }
                 ),
                 contentDescription = "Mood icon"

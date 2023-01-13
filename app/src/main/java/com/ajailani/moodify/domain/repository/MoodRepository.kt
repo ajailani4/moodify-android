@@ -20,4 +20,12 @@ interface MoodRepository {
     ): Flow<PagingData<MoodItem>>
 
     fun getMoodDetail(id: String): Flow<Resource<Mood>>
+
+    fun addMood(
+        mood: Int,
+        activityName: String,
+        note: String?,
+        date: String,
+        time: String
+    ): Flow<Resource<Any>>
 }

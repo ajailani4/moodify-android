@@ -13,11 +13,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ajailani.moodify.ui.Navigation
 import com.ajailani.moodify.ui.Screen
+import com.ajailani.moodify.ui.common.SharedViewModel
 import com.ajailani.moodify.ui.feature.splash.SplashViewModel
 import com.ajailani.moodify.ui.theme.MoodifyTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +29,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val splashViewModel: SplashViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels {
+        SavedStateViewModelFactory(application, this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +51,10 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colorScheme.background
                         ) {
-                            Content(startDestination)
+                            Content(
+                                startDestination = startDestination,
+                                sharedViewModel = sharedViewModel
+                            )
                         }
                     }
                 }
@@ -57,7 +65,10 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Content(startDestination: String) {
+fun Content(
+    startDestination: String,
+    sharedViewModel: SharedViewModel
+) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -106,7 +117,8 @@ fun Content(startDestination: String) {
         Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())) {
             Navigation(
                 navController = navController,
-                startDestination = startDestination
+                startDestination = startDestination,
+                sharedViewModel = sharedViewModel
             )
         }
     }

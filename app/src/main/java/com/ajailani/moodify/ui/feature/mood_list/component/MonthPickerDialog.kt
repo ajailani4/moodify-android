@@ -42,6 +42,7 @@ fun MonthPickerDialog(
                         trailingIcon = {
                             Icon(
                                 imageVector = Icons.Default.ExpandMore,
+                                tint = MaterialTheme.colorScheme.onSurface,
                                 contentDescription = "Expand more icon"
                             )
                         },
@@ -85,6 +86,7 @@ fun MonthPickerDialog(
                         trailingIcon = {
                             Icon(
                                 imageVector = Icons.Default.ExpandMore,
+                                tint = MaterialTheme.colorScheme.onSurface,
                                 contentDescription = "Expand more icon"
                             )
                         },

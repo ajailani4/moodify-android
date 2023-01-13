@@ -60,4 +60,9 @@
     <string name="activity">Aktivitas</string>
     <string name="note">Catatan</string>
     <string name="no_note">Tidak ada catatan</string>
+
+    <string name="how_are_you">Bagaimana kabarmu?</string>
+    <string name="what_activity">Aktivitas apa yang membuat perasaan ini?</string>
+    <string name="insert_a_note">Masukkan catatan</string>
+    <string name="save">Simpan</string>
 </resources>

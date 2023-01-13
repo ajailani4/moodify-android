@@ -1,6 +1,7 @@
 package com.ajailani.moodify.data.remote.data_source
 
 import com.ajailani.moodify.data.remote.api_service.MoodService
+import com.ajailani.moodify.data.remote.dto.request.AddEditMoodRequest
 import javax.inject.Inject
 
 class MoodRemoteDataSource @Inject constructor(
@@ -19,4 +20,7 @@ class MoodRemoteDataSource @Inject constructor(
     )
 
     suspend fun getMoodDetail(id: String) = moodService.getMoodDetail(id)
+
+    suspend fun addMood(addEditMoodRequest: AddEditMoodRequest) =
+        moodService.addMood(addEditMoodRequest)
 }

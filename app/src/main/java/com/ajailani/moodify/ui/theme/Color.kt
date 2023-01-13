@@ -61,3 +61,10 @@ val dark_inversePrimary = Color(0xFF006C45)
 val dark_surfaceTint = Color(0xFF5CDD9F)
 val dark_outlineVariant = Color(0xFF404943)
 val dark_scrim = Color(0xFF000000)
+
+// Additional color
+val ExcellentMoodGreen = Color(0xFF11C066)
+val GoodMoodGreen = Color(0xFF30E843)
+val OkayMoodBlue = Color(0xFF1F97DB)
+val BadMoodOrange = Color(0xFFFABC45)
+val TerribleMoodRed = Color(0xFFF63E3E)
