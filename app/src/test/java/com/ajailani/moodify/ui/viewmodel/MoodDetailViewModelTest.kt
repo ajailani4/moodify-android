@@ -3,8 +3,10 @@ package com.ajailani.moodify.ui.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.domain.model.Mood
+import com.ajailani.moodify.domain.use_case.mood.DeleteMoodUseCase
 import com.ajailani.moodify.domain.use_case.mood.GetMoodDetailUseCase
 import com.ajailani.moodify.ui.common.UIState
+import com.ajailani.moodify.ui.feature.add_edit_mood.AddEditMoodEvent
 import com.ajailani.moodify.ui.feature.mood_detail.MoodDetailEvent
 import com.ajailani.moodify.ui.feature.mood_detail.MoodDetailViewModel
 import com.ajailani.moodify.util.TestCoroutineRule
@@ -16,9 +18,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 
 @ExperimentalCoroutinesApi
@@ -30,6 +35,9 @@ class MoodDetailViewModelTest {
 
     @Mock
     private lateinit var getMoodDetailUseCase: GetMoodDetailUseCase
+
+    @Mock
+    private lateinit var deleteMoodUseCase: DeleteMoodUseCase
 
     private lateinit var savedStateHandle: SavedStateHandle
 
@@ -44,7 +52,8 @@ class MoodDetailViewModelTest {
         }
         moodDetailViewModel = MoodDetailViewModel(
             savedStateHandle,
-            getMoodDetailUseCase
+            getMoodDetailUseCase,
+            deleteMoodUseCase
         )
         onEvent = moodDetailViewModel::onEvent
     }
@@ -80,6 +89,44 @@ class MoodDetailViewModelTest {
             onEvent(MoodDetailEvent.GetMoodDetail)
 
             val isSuccess = when (moodDetailViewModel.moodDetailState) {
+                is UIState.Success -> true
+
+                else -> false
+            }
+
+            assertEquals("Should be fail", false, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Delete mood should be success`() {
+        testCoroutineRule.runTest {
+            val resource = flowOf(Resource.Success(Any()))
+
+            Mockito.doReturn(resource).`when`(deleteMoodUseCase)(anyString())
+
+            onEvent(MoodDetailEvent.DeleteMood)
+
+            val isSuccess = when (moodDetailViewModel.deleteMoodState) {
+                is UIState.Success -> true
+
+                else -> false
+            }
+
+            assertEquals("Should be success", true, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Delete mood should be fail`() {
+        testCoroutineRule.runTest {
+            val resource = flowOf(Resource.Error<Any>())
+
+            Mockito.doReturn(resource).`when`(deleteMoodUseCase)(anyString())
+
+            onEvent(MoodDetailEvent.DeleteMood)
+
+            val isSuccess = when (moodDetailViewModel.deleteMoodState) {
                 is UIState.Success -> true
 
                 else -> false
