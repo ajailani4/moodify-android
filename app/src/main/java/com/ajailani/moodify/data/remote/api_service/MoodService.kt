@@ -31,4 +31,9 @@ interface MoodService {
         @Path("id") id: String,
         @Body addEditMoodRequest: AddEditMoodRequest
     ): Response<BaseResponse<Any>>
+
+    @DELETE("moods/{id}")
+    suspend fun deleteMood(
+        @Path("id") id: String
+    ): Response<BaseResponse<Any>>
 }
