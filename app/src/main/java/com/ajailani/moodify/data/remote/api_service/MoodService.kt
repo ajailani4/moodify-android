@@ -25,4 +25,10 @@ interface MoodService {
     suspend fun addMood(
         @Body addEditMoodRequest: AddEditMoodRequest
     ): Response<BaseResponse<Any>>
+
+    @PUT("moods/{id}")
+    suspend fun editMood(
+        @Path("id") id: String,
+        @Body addEditMoodRequest: AddEditMoodRequest
+    ): Response<BaseResponse<Any>>
 }
