@@ -43,6 +43,7 @@ fun MoodDetailScreen(
     val moodId = moodDetailViewModel.moodId
     val moodDetailState = moodDetailViewModel.moodDetailState
     val menuVisibility = moodDetailViewModel.menuVisibility
+    val deleteMoodDialogVis = moodDetailViewModel.deleteMoodDialogVis
 
     val reloaded = sharedViewModel.reloaded
     val onReloadedChanged = sharedViewModel::onReloadedChanged
@@ -104,6 +105,7 @@ fun MoodDetailScreen(
                                 Text(text = stringResource(id = R.string.delete))
                             },
                             onClick = {
+                                onEvent(MoodDetailEvent.OnDeleteMoodDialogVisChanged(true))
                                 onEvent(MoodDetailEvent.OnMenuVisibilityChanged(false))
                             },
                             leadingIcon = {
@@ -224,6 +226,39 @@ fun MoodDetailScreen(
                 else -> {}
             }
         }
+    }
+
+    // Delete mood confirmation dialog
+    if (deleteMoodDialogVis) {
+        AlertDialog(
+            onDismissRequest = {
+                onEvent(MoodDetailEvent.OnDeleteMoodDialogVisChanged(false))
+            },
+            title = {
+                Text(text = stringResource(id = R.string.delete_mood))
+            },
+            text = {
+                Text(text = stringResource(id = R.string.delete_mood_confirm_msg))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onEvent(MoodDetailEvent.OnDeleteMoodDialogVisChanged(false))
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.yes))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        onEvent(MoodDetailEvent.OnDeleteMoodDialogVisChanged(false))
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.no))
+                }
+            }
+        )
     }
 
     // Observe reloaded state from SharedViewModel

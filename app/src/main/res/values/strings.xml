@@ -61,6 +61,10 @@
     <string name="no_note">No note</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="delete_mood">Delete Mood</string>
+    <string name="delete_mood_confirm_msg">Are you sure to delete this mood?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     
     <string name="how_are_you">How are you?</string>
     <string name="what_activity">What activity make this feeling?</string>

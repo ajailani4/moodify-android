@@ -28,6 +28,9 @@ class MoodDetailViewModel @Inject constructor(
     var menuVisibility by mutableStateOf(false)
         private set
 
+    var deleteMoodDialogVis by mutableStateOf(false)
+        private set
+
     init {
         getMoodDetail()
     }
@@ -37,6 +40,8 @@ class MoodDetailViewModel @Inject constructor(
             MoodDetailEvent.GetMoodDetail -> getMoodDetail()
 
             is MoodDetailEvent.OnMenuVisibilityChanged -> menuVisibility = event.isVisible
+
+            is MoodDetailEvent.OnDeleteMoodDialogVisChanged -> deleteMoodDialogVis = event.isVisible
         }
     }
 
