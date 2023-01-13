@@ -37,21 +37,21 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditMoodScreen(
-    addEditViewModel: AddEditViewModel = hiltViewModel(),
+    addEditMoodViewModel: AddEditMoodViewModel = hiltViewModel(),
     sharedViewModel: SharedViewModel,
     onNavigateUp: () -> Unit
 ) {
-    val onEvent = addEditViewModel::onEvent
-    val moodId = addEditViewModel.moodId
-    val addMoodState = addEditViewModel.addMoodState
-    val editMoodState = addEditViewModel.editMoodState
-    val activitiesState = addEditViewModel.activitiesState
-    val moodDetailState = addEditViewModel.moodDetailState
-    val selectedMood = addEditViewModel.selectedMood
-    val selectedActivityName = addEditViewModel.selectedActivityName
-    val note = addEditViewModel.note
-    val date = addEditViewModel.date
-    val time = addEditViewModel.time
+    val onEvent = addEditMoodViewModel::onEvent
+    val moodId = addEditMoodViewModel.moodId
+    val addMoodState = addEditMoodViewModel.addMoodState
+    val editMoodState = addEditMoodViewModel.editMoodState
+    val activitiesState = addEditMoodViewModel.activitiesState
+    val moodDetailState = addEditMoodViewModel.moodDetailState
+    val selectedMood = addEditMoodViewModel.selectedMood
+    val selectedActivityName = addEditMoodViewModel.selectedActivityName
+    val note = addEditMoodViewModel.note
+    val date = addEditMoodViewModel.date
+    val time = addEditMoodViewModel.time
 
     val onReloadedChanged = sharedViewModel::onReloadedChanged
 

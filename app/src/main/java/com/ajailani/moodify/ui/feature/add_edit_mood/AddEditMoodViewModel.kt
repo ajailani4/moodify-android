@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddEditViewModel @Inject constructor(
+class AddEditMoodViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val addMoodUseCase: AddMoodUseCase,
     private val editMoodUseCase: EditMoodUseCase,
