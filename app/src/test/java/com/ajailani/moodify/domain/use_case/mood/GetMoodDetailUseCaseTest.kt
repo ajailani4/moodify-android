@@ -25,7 +25,7 @@ class GetMoodDetailUseCaseTest {
     }
 
     @Test
-    fun `Get moods should return success resource`() =
+    fun `Get mood detail should return success resource`() =
         runTest(UnconfinedTestDispatcher()) {
             moodRepositoryFake.setResourceType(ResourceType.Success)
 
@@ -39,7 +39,7 @@ class GetMoodDetailUseCaseTest {
         }
 
     @Test
-    fun `Get moods should return error resource`() =
+    fun `Get mood detail should return error resource`() =
         runTest(UnconfinedTestDispatcher()) {
             moodRepositoryFake.setResourceType(ResourceType.Error)
 
