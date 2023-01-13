@@ -96,4 +96,31 @@ class MoodRepositoryImpl @Inject constructor(
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
         }
+
+    override fun editMood(
+        id: String,
+        mood: Int,
+        activityName: String,
+        note: String?,
+        date: String,
+        time: String
+    ) =
+        flow {
+            val response = moodRemoteDataSource.editMood(
+                id = id,
+                addEditMoodRequest = AddEditMoodRequest(
+                    mood = mood,
+                    activityName = activityName,
+                    note = note,
+                    date = date,
+                    time = time
+                )
+            )
+
+            when (response.code()) {
+                200 -> emit(Resource.Success(response.body()?.data))
+
+                else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
+            }
+        }
 }

@@ -81,11 +81,26 @@ fun Navigation(
             )
         ) {
             MoodDetailScreen(
-                onNavigateUp = { navController.navigateUp() }
+                sharedViewModel = sharedViewModel,
+                onNavigateUp = { navController.navigateUp() },
+                onNavigateToAddEditMood = { moodId ->
+                    navController.navigate(
+                        Screen.AddEditMood.route + "?moodId=$moodId"
+                    )
+                }
             )
         }
 
-        composable(Screen.AddEditMood.route) {
+        composable(
+            route = Screen.AddEditMood.route + "?moodId={moodId}",
+            arguments = listOf(
+                navArgument("moodId") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                }
+            )
+        ) {
             AddEditMoodScreen(
                 sharedViewModel = sharedViewModel,
                 onNavigateUp = { navController.navigateUp() }

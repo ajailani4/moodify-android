@@ -213,4 +213,72 @@ class MoodRepositoryTest {
             assertEquals("Resource should be error", false, isSuccess)
         }
     }
+
+    @Test
+    fun `Edit mood should return success resource`() {
+        runTest(UnconfinedTestDispatcher()) {
+            val resource = Response.success(
+                200,
+                BaseResponse(
+                    code = 200,
+                    status = "OK",
+                    data = null
+                )
+            )
+
+            doReturn(resource).`when`(moodRemoteDataSource).editMood(
+                id = anyString(),
+                addEditMoodRequest = any()
+            )
+
+            val actualResource = moodRepository.editMood(
+                id = "abc",
+                mood = 4,
+                activityName = "Mendengarkan musik",
+                note = null,
+                date = "2023-01-12",
+                time = "09:25"
+            ).first()
+
+            val isSuccess = when (actualResource) {
+                is Resource.Success -> true
+
+                is Resource.Error -> false
+            }
+
+            assertEquals("Resource should be success", true, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Edit mood should return error resource`() {
+        runTest(UnconfinedTestDispatcher()) {
+            val resource = Response.error<Any>(
+                400,
+                "".toResponseBody()
+            )
+
+            doReturn(resource).`when`(moodRemoteDataSource).editMood(
+                id = anyString(),
+                addEditMoodRequest = any()
+            )
+
+            val actualResource = moodRepository.editMood(
+                id = "abc",
+                mood = 4,
+                activityName = "Mendengarkan musik",
+                note = null,
+                date = "2023-01-12",
+                time = "09:25"
+            ).first()
+
+            val isSuccess = when (actualResource) {
+                is Resource.Success -> true
+
+                is Resource.Error -> false
+            }
+
+            assertEquals("Resource should be error", false, isSuccess)
+        }
+    }
 }

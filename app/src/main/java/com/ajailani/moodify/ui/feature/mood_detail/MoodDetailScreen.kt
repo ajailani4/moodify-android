@@ -9,6 +9,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,16 +27,25 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.ajailani.moodify.R
+import com.ajailani.moodify.ui.common.SharedViewModel
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.util.Formatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoodDetailScreen(
+    moodDetailViewModel: MoodDetailViewModel = hiltViewModel(),
+    sharedViewModel: SharedViewModel,
     onNavigateUp: () -> Unit,
-    moodDetailViewModel: MoodDetailViewModel = hiltViewModel()
+    onNavigateToAddEditMood: (String) -> Unit
 ) {
+    val onEvent = moodDetailViewModel::onEvent
+    val moodId = moodDetailViewModel.moodId
     val moodDetailState = moodDetailViewModel.moodDetailState
+    val menuVisibility = moodDetailViewModel.menuVisibility
+
+    val reloaded = sharedViewModel.reloaded
+    val onReloadedChanged = sharedViewModel::onReloadedChanged
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -54,10 +65,53 @@ fun MoodDetailScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(
+                        onClick = {
+                            onEvent(MoodDetailEvent.OnMenuVisibilityChanged(true))
+                        }
+                    ) {
                         Icon(
                             imageVector = Icons.Default.MoreVert,
                             contentDescription = "More option icon"
+                        )
+                    }
+                    DropdownMenu(
+                        expanded = menuVisibility,
+                        onDismissRequest = {
+                            onEvent(MoodDetailEvent.OnMenuVisibilityChanged(false))
+                        }
+                    ) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = stringResource(id = R.string.edit))
+                            },
+                            onClick = {
+                                moodId?.let {
+                                    onNavigateToAddEditMood(it)
+                                }
+
+                                onEvent(MoodDetailEvent.OnMenuVisibilityChanged(false))
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Edit,
+                                    contentDescription = "Edit icon"
+                                )
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = stringResource(id = R.string.delete))
+                            },
+                            onClick = {
+                                onEvent(MoodDetailEvent.OnMenuVisibilityChanged(false))
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Delete,
+                                    contentDescription = "Delete icon"
+                                )
+                            }
                         )
                     }
                 }
@@ -76,6 +130,8 @@ fun MoodDetailScreen(
                 }
 
                 is UIState.Success -> {
+                    onReloadedChanged(false)
+
                     moodDetailState.data?.let { mood ->
                         Column(
                             modifier = Modifier.padding(20.dp)
@@ -146,6 +202,8 @@ fun MoodDetailScreen(
                 }
 
                 is UIState.Fail -> {
+                    onReloadedChanged(false)
+
                     LaunchedEffect(snackbarHostState) {
                         moodDetailState.message?.let {
                             snackbarHostState.showSnackbar(it)
@@ -154,6 +212,8 @@ fun MoodDetailScreen(
                 }
 
                 is UIState.Error -> {
+                    onReloadedChanged(false)
+
                     LaunchedEffect(snackbarHostState) {
                         moodDetailState.message?.let {
                             snackbarHostState.showSnackbar(it)
@@ -164,6 +224,11 @@ fun MoodDetailScreen(
                 else -> {}
             }
         }
+    }
+
+    // Observe reloaded state from SharedViewModel
+    if (reloaded) {
+        onEvent(MoodDetailEvent.GetMoodDetail)
     }
 }
 

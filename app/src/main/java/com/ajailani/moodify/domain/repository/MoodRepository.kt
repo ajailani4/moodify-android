@@ -28,4 +28,13 @@ interface MoodRepository {
         date: String,
         time: String
     ): Flow<Resource<Any>>
+
+    fun editMood(
+        id: String,
+        mood: Int,
+        activityName: String,
+        note: String?,
+        date: String,
+        time: String
+    ): Flow<Resource<Any>>
 }

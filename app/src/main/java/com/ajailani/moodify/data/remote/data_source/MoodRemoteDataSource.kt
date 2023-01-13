@@ -23,4 +23,12 @@ class MoodRemoteDataSource @Inject constructor(
 
     suspend fun addMood(addEditMoodRequest: AddEditMoodRequest) =
         moodService.addMood(addEditMoodRequest)
+
+    suspend fun editMood(
+        id: String,
+        addEditMoodRequest: AddEditMoodRequest
+    ) = moodService.editMood(
+        id = id,
+        addEditMoodRequest = addEditMoodRequest
+    )
 }

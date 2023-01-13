@@ -109,13 +109,13 @@ fun HomeScreen(
                     )
                 }
             }
-
-            // Observe reloaded state from SharedViewModel
-            if (reloaded) {
-                onEvent(HomeEvent.GetRecommendedActivities)
-                onEvent(HomeEvent.GetMoods)
-            }
         }
+    }
+
+    // Observe reloaded state from SharedViewModel
+    if (reloaded) {
+        onEvent(HomeEvent.GetRecommendedActivities)
+        onEvent(HomeEvent.GetMoods)
     }
 }
 

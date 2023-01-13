@@ -1,11 +1,14 @@
 package com.ajailani.moodify.ui.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.domain.use_case.activity.GetActivitiesUseCase
 import com.ajailani.moodify.domain.use_case.mood.AddMoodUseCase
+import com.ajailani.moodify.domain.use_case.mood.EditMoodUseCase
+import com.ajailani.moodify.domain.use_case.mood.GetMoodDetailUseCase
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.feature.add_edit_mood.AddEditMoodEvent
-import com.ajailani.moodify.ui.feature.add_edit_mood.AddEditViewModel
+import com.ajailani.moodify.ui.feature.add_edit_mood.AddEditMoodViewModel
 import com.ajailani.moodify.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -23,7 +26,7 @@ import org.mockito.kotlin.anyOrNull
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class AddEditViewModelTest {
+class AddEditMoodViewModelTest {
 
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
@@ -32,19 +35,33 @@ class AddEditViewModelTest {
     private lateinit var addMoodUseCase: AddMoodUseCase
 
     @Mock
+    private lateinit var editMoodUseCase: EditMoodUseCase
+
+    @Mock
     private lateinit var getActivitiesUseCase: GetActivitiesUseCase
 
-    private lateinit var addEditViewModel: AddEditViewModel
+    @Mock
+    private lateinit var getMoodDetailUseCase: GetMoodDetailUseCase
+
+    private lateinit var savedStateHandle: SavedStateHandle
+
+    private lateinit var addEditMoodViewModel: AddEditMoodViewModel
 
     private lateinit var onEvent: (AddEditMoodEvent) -> Unit
 
     @Before
     fun setUp() {
-        addEditViewModel = AddEditViewModel(
+        savedStateHandle = SavedStateHandle().apply {
+            set("moodId", "abc")
+        }
+        addEditMoodViewModel = AddEditMoodViewModel(
+            savedStateHandle,
             addMoodUseCase,
-            getActivitiesUseCase
+            editMoodUseCase,
+            getActivitiesUseCase,
+            getMoodDetailUseCase
         )
-        onEvent = addEditViewModel::onEvent
+        onEvent = addEditMoodViewModel::onEvent
     }
 
     @Test
@@ -62,7 +79,7 @@ class AddEditViewModelTest {
 
             onEvent(AddEditMoodEvent.AddMood)
 
-            val isSuccess = when (addEditViewModel.addMoodState) {
+            val isSuccess = when (addEditMoodViewModel.addMoodState) {
                 is UIState.Success -> true
 
                 else -> false
@@ -87,7 +104,59 @@ class AddEditViewModelTest {
 
             onEvent(AddEditMoodEvent.AddMood)
 
-            val isSuccess = when (addEditViewModel.addMoodState) {
+            val isSuccess = when (addEditMoodViewModel.addMoodState) {
+                is UIState.Success -> true
+
+                else -> false
+            }
+
+            assertEquals("Should be fail", false, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Edit mood should be success`() {
+        testCoroutineRule.runTest {
+            val resource = flowOf(Resource.Success(Any()))
+
+            doReturn(resource).`when`(editMoodUseCase)(
+                id = anyString(),
+                mood = anyInt(),
+                activityName = anyString(),
+                note = anyOrNull(),
+                date = anyString(),
+                time = anyString()
+            )
+
+            onEvent(AddEditMoodEvent.EditMood)
+
+            val isSuccess = when (addEditMoodViewModel.editMoodState) {
+                is UIState.Success -> true
+
+                else -> false
+            }
+
+            assertEquals("Should be success", true, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Edit mood should be fail`() {
+        testCoroutineRule.runTest {
+            val resource = flowOf(Resource.Error<Any>())
+
+            doReturn(resource).`when`(editMoodUseCase)(
+                id = anyString(),
+                mood = anyInt(),
+                activityName = anyString(),
+                note = anyOrNull(),
+                date = anyString(),
+                time = anyString()
+            )
+
+            onEvent(AddEditMoodEvent.EditMood)
+
+            val isSuccess = when (addEditMoodViewModel.editMoodState) {
                 is UIState.Success -> true
 
                 else -> false

@@ -12,22 +12,23 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class AddMoodUseCaseTest {
+class EditMoodUseCaseTest {
     private lateinit var moodRepositoryFake: MoodRepositoryFake
-    private lateinit var addMoodUseCase: AddMoodUseCase
+    private lateinit var editMoodUseCase: EditMoodUseCase
 
     @Before
     fun setUp() {
         moodRepositoryFake = MoodRepositoryFake()
-        addMoodUseCase = AddMoodUseCase(moodRepositoryFake)
+        editMoodUseCase = EditMoodUseCase(moodRepositoryFake)
     }
 
     @Test
-    fun `Add mood should return success resource`() =
+    fun `Edit mood should return success resource`() =
         runTest(UnconfinedTestDispatcher()) {
             moodRepositoryFake.setResourceType(ResourceType.Success)
 
-            val actualResource = addMoodUseCase(
+            val actualResource = editMoodUseCase(
+                id = "abc",
                 mood = 4,
                 activityName = "Mendengarkan musik",
                 note = null,
@@ -49,11 +50,12 @@ class AddMoodUseCaseTest {
         }
 
     @Test
-    fun `Add mood should return error resource`() =
+    fun `Edit mood should return error resource`() =
         runTest(UnconfinedTestDispatcher()) {
             moodRepositoryFake.setResourceType(ResourceType.Error)
 
-            val actualResource = addMoodUseCase(
+            val actualResource = editMoodUseCase(
+                id = "abc",
                 mood = 4,
                 activityName = "Mendengarkan musik",
                 note = null,
