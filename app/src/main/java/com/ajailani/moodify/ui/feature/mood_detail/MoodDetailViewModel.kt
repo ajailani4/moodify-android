@@ -20,9 +20,12 @@ class MoodDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getMoodDetailUseCase: GetMoodDetailUseCase
 ) : ViewModel() {
-    private val moodId = savedStateHandle.get<String>("moodId")
+    val moodId = savedStateHandle.get<String>("moodId")
 
     var moodDetailState by mutableStateOf<UIState<Mood>>(UIState.Idle)
+        private set
+
+    var menuVisibility by mutableStateOf(false)
         private set
 
     init {
@@ -32,6 +35,8 @@ class MoodDetailViewModel @Inject constructor(
     fun onEvent(event: MoodDetailEvent) {
         when (event) {
             MoodDetailEvent.GetMoodDetail -> getMoodDetail()
+
+            is MoodDetailEvent.OnMenuVisibilityChanged -> menuVisibility = event.isVisible
         }
     }
 

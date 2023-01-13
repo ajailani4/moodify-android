@@ -42,8 +42,10 @@ fun AddEditMoodScreen(
     onNavigateUp: () -> Unit
 ) {
     val onEvent = addEditViewModel::onEvent
+    val moodId = addEditViewModel.moodId
     val addMoodState = addEditViewModel.addMoodState
     val activitiesState = addEditViewModel.activitiesState
+    val moodDetailState = addEditViewModel.moodDetailState
     val selectedMood = addEditViewModel.selectedMood
     val selectedActivityName = addEditViewModel.selectedActivityName
     val note = addEditViewModel.note
@@ -115,7 +117,7 @@ fun AddEditMoodScreen(
                         Row {
                             TextField(
                                 modifier = Modifier
-                                    .width(150.dp)
+                                    .width(160.dp)
                                     .clickable {
                                         context.showDatePicker {
                                             onEvent(AddEditMoodEvent.OnDateChanged(it))
@@ -248,6 +250,45 @@ fun AddEditMoodScreen(
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                 }
+            }
+        }
+
+        // Observe mood detail state if moodId is not null
+        if (moodId != null) {
+            when (moodDetailState) {
+                UIState.Loading -> {
+                    ProgressBarWithBackground()
+                }
+
+                is UIState.Success -> {
+                    moodDetailState.data?.let { moodDetail ->
+                        onEvent(AddEditMoodEvent.OnMoodChanged(moodDetail.mood))
+                        onEvent(AddEditMoodEvent.OnActivityNameChanged(moodDetail.activity.name))
+                        onEvent(AddEditMoodEvent.OnNoteChanged(moodDetail.note))
+                        onEvent(AddEditMoodEvent.OnDateChanged(moodDetail.date))
+                        onEvent(AddEditMoodEvent.OnTimeChanged(moodDetail.time))
+                    }
+
+                    onEvent(AddEditMoodEvent.Idle)
+                }
+
+                is UIState.Fail -> {
+                    LaunchedEffect(snackbarHostState) {
+                        moodDetailState.message?.let {
+                            snackbarHostState.showSnackbar(it)
+                        }
+                    }
+                }
+
+                is UIState.Error -> {
+                    LaunchedEffect(snackbarHostState) {
+                        moodDetailState.message?.let {
+                            snackbarHostState.showSnackbar(it)
+                        }
+                    }
+                }
+
+                else -> {}
             }
         }
 

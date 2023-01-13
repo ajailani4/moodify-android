@@ -3,12 +3,15 @@ package com.ajailani.moodify.ui.feature.add_edit_mood
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.domain.model.Activity
+import com.ajailani.moodify.domain.model.Mood
 import com.ajailani.moodify.domain.use_case.activity.GetActivitiesUseCase
 import com.ajailani.moodify.domain.use_case.mood.AddMoodUseCase
+import com.ajailani.moodify.domain.use_case.mood.GetMoodDetailUseCase
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,13 +21,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddEditViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val addMoodUseCase: AddMoodUseCase,
-    private val getActivitiesUseCase: GetActivitiesUseCase
+    private val getActivitiesUseCase: GetActivitiesUseCase,
+    private val getMoodDetailUseCase: GetMoodDetailUseCase
 ) : ViewModel() {
+    val moodId = savedStateHandle.get<String>("moodId")
+
     var addMoodState by mutableStateOf<UIState<Nothing>>(UIState.Idle)
         private set
 
     var activitiesState by mutableStateOf<UIState<List<Activity>>>(UIState.Idle)
+        private set
+
+    var moodDetailState by mutableStateOf<UIState<Mood>>(UIState.Idle)
         private set
 
     var selectedMood by mutableStateOf(0)
@@ -46,10 +56,14 @@ class AddEditViewModel @Inject constructor(
 
     init {
         getActivities()
+
+        if (moodId != null) getMoodDetail()
     }
 
     fun onEvent(event: AddEditMoodEvent) {
         when (event) {
+            AddEditMoodEvent.Idle -> idle()
+
             AddEditMoodEvent.AddMood -> addMood()
 
             is AddEditMoodEvent.OnMoodChanged -> selectedMood = event.mood
@@ -62,6 +76,10 @@ class AddEditViewModel @Inject constructor(
 
             is AddEditMoodEvent.OnTimeChanged -> time = event.time
         }
+    }
+
+    private fun idle() {
+        moodDetailState = UIState.Idle
     }
 
     private fun addMood() {
@@ -97,6 +115,24 @@ class AddEditViewModel @Inject constructor(
                     is Resource.Success -> UIState.Success(it.data)
 
                     is Resource.Error -> UIState.Fail(it.message)
+                }
+            }
+        }
+    }
+
+    private fun getMoodDetail() {
+        moodDetailState = UIState.Loading
+
+        viewModelScope.launch {
+            moodId?.let { id ->
+                getMoodDetailUseCase(id).catch {
+                    moodDetailState = UIState.Error(it.localizedMessage)
+                }.collect {
+                    moodDetailState = when (it) {
+                        is Resource.Success -> UIState.Success(it.data)
+
+                        is Resource.Error -> UIState.Fail(it.message)
+                    }
                 }
             }
         }

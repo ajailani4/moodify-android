@@ -81,7 +81,12 @@ fun Navigation(
             )
         ) {
             MoodDetailScreen(
-                onNavigateUp = { navController.navigateUp() }
+                onNavigateUp = { navController.navigateUp() },
+                onNavigateToAddEditMood = { moodId ->
+                    navController.navigate(
+                        Screen.AddEditMood.route + "?moodId=$moodId"
+                    )
+                }
             )
         }
 

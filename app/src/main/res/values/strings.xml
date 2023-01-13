@@ -59,6 +59,8 @@
     <string name="activity">Activity</string>
     <string name="note">Note</string>
     <string name="no_note">No note</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     
     <string name="how_are_you">How are you?</string>
     <string name="what_activity">What activity make this feeling?</string>
