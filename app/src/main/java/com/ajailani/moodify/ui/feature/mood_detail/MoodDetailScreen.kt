@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.ajailani.moodify.R
+import com.ajailani.moodify.ui.common.SharedViewModel
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.util.Formatter
 
@@ -34,6 +35,7 @@ import com.ajailani.moodify.util.Formatter
 @Composable
 fun MoodDetailScreen(
     moodDetailViewModel: MoodDetailViewModel = hiltViewModel(),
+    sharedViewModel: SharedViewModel,
     onNavigateUp: () -> Unit,
     onNavigateToAddEditMood: (String) -> Unit
 ) {
@@ -41,6 +43,9 @@ fun MoodDetailScreen(
     val moodId = moodDetailViewModel.moodId
     val moodDetailState = moodDetailViewModel.moodDetailState
     val menuVisibility = moodDetailViewModel.menuVisibility
+
+    val reloaded = sharedViewModel.reloaded
+    val onReloadedChanged = sharedViewModel::onReloadedChanged
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -125,6 +130,8 @@ fun MoodDetailScreen(
                 }
 
                 is UIState.Success -> {
+                    onReloadedChanged(false)
+
                     moodDetailState.data?.let { mood ->
                         Column(
                             modifier = Modifier.padding(20.dp)
@@ -195,6 +202,8 @@ fun MoodDetailScreen(
                 }
 
                 is UIState.Fail -> {
+                    onReloadedChanged(false)
+
                     LaunchedEffect(snackbarHostState) {
                         moodDetailState.message?.let {
                             snackbarHostState.showSnackbar(it)
@@ -203,6 +212,8 @@ fun MoodDetailScreen(
                 }
 
                 is UIState.Error -> {
+                    onReloadedChanged(false)
+
                     LaunchedEffect(snackbarHostState) {
                         moodDetailState.message?.let {
                             snackbarHostState.showSnackbar(it)
@@ -213,6 +224,11 @@ fun MoodDetailScreen(
                 else -> {}
             }
         }
+    }
+
+    // Observe reloaded state from SharedViewModel
+    if (reloaded) {
+        onEvent(MoodDetailEvent.GetMoodDetail)
     }
 }
 

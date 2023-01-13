@@ -81,6 +81,7 @@ fun Navigation(
             )
         ) {
             MoodDetailScreen(
+                sharedViewModel = sharedViewModel,
                 onNavigateUp = { navController.navigateUp() },
                 onNavigateToAddEditMood = { moodId ->
                     navController.navigate(
