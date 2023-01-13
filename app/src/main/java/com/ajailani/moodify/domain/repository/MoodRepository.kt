@@ -37,4 +37,6 @@ interface MoodRepository {
         date: String,
         time: String
     ): Flow<Resource<Any>>
+
+    fun deleteMood(id: String): Flow<Resource<Any>>
 }
