@@ -4,16 +4,20 @@ import android.content.Context
 import com.ajailani.moodify.data.remote.data_source.MoodRemoteDataSource
 import com.ajailani.moodify.data.remote.dto.MoodDto
 import com.ajailani.moodify.data.remote.dto.MoodItemDto
+import com.ajailani.moodify.data.remote.dto.request.AddEditMoodRequest
 import com.ajailani.moodify.data.remote.dto.response.BaseResponse
 import com.ajailani.moodify.data.repository.MoodRepositoryImpl
 import com.ajailani.moodify.domain.model.Mood
 import com.ajailani.moodify.domain.repository.MoodRepository
+import com.ajailani.moodify.ui.common.UIState
+import com.ajailani.moodify.ui.feature.add_edit_mood.AddEditMoodEvent
 import com.ajailani.moodify.util.mood
 import com.ajailani.moodify.util.moodDto
 import com.ajailani.moodify.util.moods
 import com.ajailani.moodify.util.moodsDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -24,7 +28,9 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import retrofit2.Response
@@ -152,4 +158,64 @@ class MoodRepositoryTest {
                 actualResource
             )
         }
+
+    @Test
+    fun `Add mood should return success resource`() {
+        runTest(UnconfinedTestDispatcher()) {
+            val resource = Response.success(
+                201,
+                BaseResponse(
+                    code = 201,
+                    status = "Created",
+                    data = null
+                )
+            )
+
+            doReturn(resource).`when`(moodRemoteDataSource).addMood(any())
+
+            val actualResource = moodRepository.addMood(
+                mood = 4,
+                activityName = "Mendengarkan musik",
+                note = null,
+                date = "2023-01-12",
+                time = "09:25"
+            ).first()
+
+            val isSuccess = when (actualResource) {
+                is Resource.Success -> true
+
+                is Resource.Error -> false
+            }
+
+            assertEquals("Resource should be success", true, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Add mood should return error resource`() {
+        runTest(UnconfinedTestDispatcher()) {
+            val resource = Response.error<Any>(
+                400,
+                "".toResponseBody()
+            )
+
+            doReturn(resource).`when`(moodRemoteDataSource).addMood(any())
+
+            val actualResource = moodRepository.addMood(
+                mood = 4,
+                activityName = "Mendengarkan musik",
+                note = null,
+                date = "2023-01-12",
+                time = "09:25"
+            ).first()
+
+            val isSuccess = when (actualResource) {
+                is Resource.Success -> true
+
+                is Resource.Error -> false
+            }
+
+            assertEquals("Resource should be error", false, isSuccess)
+        }
+    }
 }
