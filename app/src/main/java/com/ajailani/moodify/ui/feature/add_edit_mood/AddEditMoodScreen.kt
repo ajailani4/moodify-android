@@ -44,6 +44,7 @@ fun AddEditMoodScreen(
     val onEvent = addEditViewModel::onEvent
     val moodId = addEditViewModel.moodId
     val addMoodState = addEditViewModel.addMoodState
+    val editMoodState = addEditViewModel.editMoodState
     val activitiesState = addEditViewModel.activitiesState
     val moodDetailState = addEditViewModel.moodDetailState
     val selectedMood = addEditViewModel.selectedMood
@@ -233,7 +234,11 @@ fun AddEditMoodScreen(
                             if (selectedMood != 0 && selectedActivityName.isNotEmpty() &&
                                 date.isNotEmpty() && time.isNotEmpty()
                             ) {
-                                onEvent(AddEditMoodEvent.AddMood)
+                                if (moodId == null) {
+                                    onEvent(AddEditMoodEvent.AddMood)
+                                } else {
+                                    onEvent(AddEditMoodEvent.EditMood)
+                                }
                             } else {
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar(
@@ -316,6 +321,38 @@ fun AddEditMoodScreen(
             is UIState.Error -> {
                 LaunchedEffect(snackbarHostState) {
                     addMoodState.message?.let {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            }
+
+            else -> {}
+        }
+
+        // Observe edit mood state
+        when (editMoodState) {
+            UIState.Loading -> {
+                ProgressBarWithBackground()
+            }
+
+            is UIState.Success -> {
+                LaunchedEffect(Unit) {
+                    onReloadedChanged(true)
+                    onNavigateUp()
+                }
+            }
+
+            is UIState.Fail -> {
+                LaunchedEffect(snackbarHostState) {
+                    editMoodState.message?.let {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            }
+
+            is UIState.Error -> {
+                LaunchedEffect(snackbarHostState) {
+                    editMoodState.message?.let {
                         snackbarHostState.showSnackbar(it)
                     }
                 }

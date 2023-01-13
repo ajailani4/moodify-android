@@ -11,6 +11,7 @@ import com.ajailani.moodify.domain.model.Activity
 import com.ajailani.moodify.domain.model.Mood
 import com.ajailani.moodify.domain.use_case.activity.GetActivitiesUseCase
 import com.ajailani.moodify.domain.use_case.mood.AddMoodUseCase
+import com.ajailani.moodify.domain.use_case.mood.EditMoodUseCase
 import com.ajailani.moodify.domain.use_case.mood.GetMoodDetailUseCase
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.util.*
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class AddEditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val addMoodUseCase: AddMoodUseCase,
+    private val editMoodUseCase: EditMoodUseCase,
     private val getActivitiesUseCase: GetActivitiesUseCase,
     private val getMoodDetailUseCase: GetMoodDetailUseCase
 ) : ViewModel() {
@@ -35,6 +37,9 @@ class AddEditViewModel @Inject constructor(
         private set
 
     var moodDetailState by mutableStateOf<UIState<Mood>>(UIState.Idle)
+        private set
+
+    var editMoodState by mutableStateOf<UIState<Nothing>>(UIState.Idle)
         private set
 
     var selectedMood by mutableStateOf(0)
@@ -66,6 +71,8 @@ class AddEditViewModel @Inject constructor(
 
             AddEditMoodEvent.AddMood -> addMood()
 
+            AddEditMoodEvent.EditMood -> editMood()
+
             is AddEditMoodEvent.OnMoodChanged -> selectedMood = event.mood
 
             is AddEditMoodEvent.OnActivityNameChanged -> selectedActivityName = event.activityName
@@ -89,7 +96,7 @@ class AddEditViewModel @Inject constructor(
             addMoodUseCase(
                 mood = selectedMood,
                 activityName = selectedActivityName,
-                note = note,
+                note = note?.ifEmpty { null },
                 date = date,
                 time = time
             ).catch {
@@ -99,6 +106,31 @@ class AddEditViewModel @Inject constructor(
                     is Resource.Success -> UIState.Success(null)
 
                     is Resource.Error -> UIState.Fail(it.message)
+                }
+            }
+        }
+    }
+
+    private fun editMood() {
+        editMoodState = UIState.Loading
+
+        viewModelScope.launch {
+            moodId?.let { id ->
+                editMoodUseCase(
+                    id = id,
+                    mood = selectedMood,
+                    activityName = selectedActivityName,
+                    note = note?.ifEmpty { null },
+                    date = date,
+                    time = time
+                ).catch {
+                    editMoodState = UIState.Error(it.localizedMessage)
+                }.collect {
+                    editMoodState = when (it) {
+                        is Resource.Success -> UIState.Success(null)
+
+                        is Resource.Error -> UIState.Fail(it.message)
+                    }
                 }
             }
         }
@@ -137,4 +169,6 @@ class AddEditViewModel @Inject constructor(
             }
         }
     }
+
+
 }
