@@ -261,9 +261,7 @@ fun AddEditMoodScreen(
         // Observe mood detail state if moodId is not null
         if (moodId != null) {
             when (moodDetailState) {
-                UIState.Loading -> {
-                    ProgressBarWithBackground()
-                }
+                UIState.Loading -> ProgressBarWithBackground()
 
                 is UIState.Success -> {
                     moodDetailState.data?.let { moodDetail ->
@@ -299,9 +297,7 @@ fun AddEditMoodScreen(
 
         // Observe add mood state
         when (addMoodState) {
-            UIState.Loading -> {
-                ProgressBarWithBackground()
-            }
+            UIState.Loading -> ProgressBarWithBackground()
 
             is UIState.Success -> {
                 LaunchedEffect(Unit) {
@@ -331,9 +327,7 @@ fun AddEditMoodScreen(
 
         // Observe edit mood state
         when (editMoodState) {
-            UIState.Loading -> {
-                ProgressBarWithBackground()
-            }
+            UIState.Loading -> ProgressBarWithBackground()
 
             is UIState.Success -> {
                 LaunchedEffect(Unit) {
