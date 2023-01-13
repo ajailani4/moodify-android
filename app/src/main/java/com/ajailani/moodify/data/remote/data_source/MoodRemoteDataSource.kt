@@ -31,4 +31,6 @@ class MoodRemoteDataSource @Inject constructor(
         id = id,
         addEditMoodRequest = addEditMoodRequest
     )
+
+    suspend fun deleteMood(id: String) = moodService.deleteMood(id)
 }

@@ -281,4 +281,48 @@ class MoodRepositoryTest {
             assertEquals("Resource should be error", false, isSuccess)
         }
     }
+
+    @Test
+    fun `Delete mood should return success resource`() {
+        runTest(UnconfinedTestDispatcher()) {
+            val resource = Response.success(
+                200,
+                BaseResponse(
+                    code = 200,
+                    status = "OK",
+                    data = null
+                )
+            )
+
+            doReturn(resource).`when`(moodRemoteDataSource).deleteMood(anyString())
+
+            val isSuccess = when (moodRepository.deleteMood("abc").first()) {
+                is Resource.Success -> true
+
+                is Resource.Error -> false
+            }
+
+            assertEquals("Resource should be success", true, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Delete mood should return error resource`() {
+        runTest(UnconfinedTestDispatcher()) {
+            val resource = Response.error<Any>(
+                400,
+                "".toResponseBody()
+            )
+
+            doReturn(resource).`when`(moodRemoteDataSource).deleteMood(anyString())
+
+            val isSuccess = when (moodRepository.deleteMood("abc").first()) {
+                is Resource.Success -> true
+
+                is Resource.Error -> false
+            }
+
+            assertEquals("Resource should be error", false, isSuccess)
+        }
+    }
 }

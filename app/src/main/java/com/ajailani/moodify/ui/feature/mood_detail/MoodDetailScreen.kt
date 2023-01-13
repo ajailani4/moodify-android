@@ -29,6 +29,7 @@ import coil.request.ImageRequest
 import com.ajailani.moodify.R
 import com.ajailani.moodify.ui.common.SharedViewModel
 import com.ajailani.moodify.ui.common.UIState
+import com.ajailani.moodify.ui.common.component.ProgressBarWithBackground
 import com.ajailani.moodify.util.Formatter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +43,9 @@ fun MoodDetailScreen(
     val onEvent = moodDetailViewModel::onEvent
     val moodId = moodDetailViewModel.moodId
     val moodDetailState = moodDetailViewModel.moodDetailState
+    val deleteMoodState = moodDetailViewModel.deleteMoodState
     val menuVisibility = moodDetailViewModel.menuVisibility
+    val deleteMoodDialogVis = moodDetailViewModel.deleteMoodDialogVis
 
     val reloaded = sharedViewModel.reloaded
     val onReloadedChanged = sharedViewModel::onReloadedChanged
@@ -104,6 +107,7 @@ fun MoodDetailScreen(
                                 Text(text = stringResource(id = R.string.delete))
                             },
                             onClick = {
+                                onEvent(MoodDetailEvent.OnDeleteMoodDialogVisChanged(true))
                                 onEvent(MoodDetailEvent.OnMenuVisibilityChanged(false))
                             },
                             leadingIcon = {
@@ -224,6 +228,70 @@ fun MoodDetailScreen(
                 else -> {}
             }
         }
+
+        // Observe delete mood state
+        when (deleteMoodState) {
+            UIState.Loading -> ProgressBarWithBackground()
+
+            is UIState.Success -> {
+                LaunchedEffect(Unit) {
+                    onReloadedChanged(true)
+                    onNavigateUp()
+                }
+            }
+
+            is UIState.Fail -> {
+                LaunchedEffect(snackbarHostState) {
+                    deleteMoodState.message?.let {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            }
+
+            is UIState.Error -> {
+                LaunchedEffect(snackbarHostState) {
+                    deleteMoodState.message?.let {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            }
+
+            else -> {}
+        }
+    }
+
+    // Delete mood confirmation dialog
+    if (deleteMoodDialogVis) {
+        AlertDialog(
+            onDismissRequest = {
+                onEvent(MoodDetailEvent.OnDeleteMoodDialogVisChanged(false))
+            },
+            title = {
+                Text(text = stringResource(id = R.string.delete_mood))
+            },
+            text = {
+                Text(text = stringResource(id = R.string.delete_mood_confirm_msg))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onEvent(MoodDetailEvent.DeleteMood)
+                        onEvent(MoodDetailEvent.OnDeleteMoodDialogVisChanged(false))
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.yes))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        onEvent(MoodDetailEvent.OnDeleteMoodDialogVisChanged(false))
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.no))
+                }
+            }
+        )
     }
 
     // Observe reloaded state from SharedViewModel

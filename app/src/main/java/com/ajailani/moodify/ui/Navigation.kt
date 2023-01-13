@@ -63,6 +63,7 @@ fun Navigation(
 
         composable(Screen.MoodList.route) {
             MoodListScreen(
+                sharedViewModel = sharedViewModel,
                 onNavigateUp = { navController.navigateUp() },
                 onNavigateToMoodDetail = { moodId ->
                     navController.navigate(

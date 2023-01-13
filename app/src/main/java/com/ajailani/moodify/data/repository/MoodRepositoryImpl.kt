@@ -13,6 +13,7 @@ import com.ajailani.moodify.data.remote.data_source.PagingDataSource
 import com.ajailani.moodify.data.remote.dto.request.AddEditMoodRequest
 import com.ajailani.moodify.domain.repository.MoodRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -116,6 +117,17 @@ class MoodRepositoryImpl @Inject constructor(
                     time = time
                 )
             )
+
+            when (response.code()) {
+                200 -> emit(Resource.Success(response.body()?.data))
+
+                else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
+            }
+        }
+
+    override fun deleteMood(id: String) =
+        flow {
+            val response = moodRemoteDataSource.deleteMood(id)
 
             when (response.code()) {
                 200 -> emit(Resource.Success(response.body()?.data))
