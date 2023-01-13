@@ -63,6 +63,13 @@ class MoodRepositoryFake : MoodRepository {
             ResourceType.Error -> flowOf(Resource.Error(null))
         }
 
+    override fun deleteMood(id: String): Flow<Resource<Any>> =
+        when (resourceType) {
+            ResourceType.Success -> flowOf(Resource.Success(Any()))
+
+            ResourceType.Error -> flowOf(Resource.Error(null))
+        }
+
     fun setResourceType(type: ResourceType) {
         resourceType = type
     }
