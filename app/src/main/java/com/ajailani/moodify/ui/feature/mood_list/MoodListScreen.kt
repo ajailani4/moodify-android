@@ -21,6 +21,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.ajailani.moodify.R
+import com.ajailani.moodify.ui.common.SharedViewModel
 import com.ajailani.moodify.ui.common.component.CaptionImage
 import com.ajailani.moodify.ui.common.component.MoodCard
 import com.ajailani.moodify.ui.feature.mood_list.component.CircleButton
@@ -33,6 +34,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @Composable
 fun MoodListScreen(
     moodListViewModel: MoodListViewModel = hiltViewModel(),
+    sharedViewModel: SharedViewModel,
     onNavigateUp: () -> Unit,
     onNavigateToMoodDetail: (String) -> Unit
 ) {
@@ -44,6 +46,9 @@ fun MoodListScreen(
     val selectedMonth = moodListViewModel.selectedMonth
     val selectedYear = moodListViewModel.selectedYear
     val swipeRefreshing = moodListViewModel.swipeRefreshing
+
+    val reloaded = sharedViewModel.reloaded
+    val onReloadedChanged = sharedViewModel::onReloadedChanged
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -165,6 +170,7 @@ fun MoodListScreen(
 
                             loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached -> {
                                 onEvent(MoodListEvent.OnSwipeRefresh(false))
+                                onReloadedChanged(false)
 
                                 if (itemCount < 1) {
                                     item {
@@ -183,6 +189,7 @@ fun MoodListScreen(
 
                             loadState.append is LoadState.Error -> {
                                 onEvent(MoodListEvent.OnSwipeRefresh(false))
+                                onReloadedChanged(false)
 
                                 item {
                                     LaunchedEffect(snackbarHostState) {
@@ -197,16 +204,21 @@ fun MoodListScreen(
                 }
             }
         }
+    }
 
-        // Observe month picker dialog visibility
-        if (monthPickerDialogVis) {
-            MonthPickerDialog(
-                onEvent = onEvent,
-                monthMenuExpanded = monthMenuExpanded,
-                yearMenuExpanded = yearMenuExpanded,
-                selectedMonth = selectedMonth,
-                selectedYear = selectedYear
-            )
-        }
+    // Observe month picker dialog visibility
+    if (monthPickerDialogVis) {
+        MonthPickerDialog(
+            onEvent = onEvent,
+            monthMenuExpanded = monthMenuExpanded,
+            yearMenuExpanded = yearMenuExpanded,
+            selectedMonth = selectedMonth,
+            selectedYear = selectedYear
+        )
+    }
+
+    // Observe reloaded state from SharedViewModel
+    if (reloaded) {
+        onEvent(MoodListEvent.GetPagingMoods)
     }
 }
