@@ -4,7 +4,6 @@ import android.app.TimePickerDialog
 import android.content.Context
 import com.ajailani.moodify.util.currentHour
 import com.ajailani.moodify.util.currentMinute
-import java.util.*
 
 fun Context.showTimePicker(onTimeChanged: (String) -> Unit) {
     TimePickerDialog(

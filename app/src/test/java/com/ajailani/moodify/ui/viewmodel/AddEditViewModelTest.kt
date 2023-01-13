@@ -6,7 +6,6 @@ import com.ajailani.moodify.domain.use_case.mood.AddMoodUseCase
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.feature.add_edit_mood.AddEditMoodEvent
 import com.ajailani.moodify.ui.feature.add_edit_mood.AddEditViewModel
-import com.ajailani.moodify.ui.feature.login.LoginEvent
 import com.ajailani.moodify.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf

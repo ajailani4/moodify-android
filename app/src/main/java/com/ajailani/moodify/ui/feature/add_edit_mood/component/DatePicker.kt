@@ -5,7 +5,6 @@ import android.content.Context
 import com.ajailani.moodify.util.currentDay
 import com.ajailani.moodify.util.currentMonth
 import com.ajailani.moodify.util.currentYear
-import java.util.*
 
 fun Context.showDatePicker(onDateChanged: (String) -> Unit) {
     DatePickerDialog(

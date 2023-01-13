@@ -1,10 +1,8 @@
 package com.ajailani.moodify.domain.use_case.mood
 
 import com.ajailani.moodify.data.Resource
-import com.ajailani.moodify.domain.model.Mood
 import com.ajailani.moodify.domain.repository.MoodRepositoryFake
 import com.ajailani.moodify.util.ResourceType
-import com.ajailani.moodify.util.mood
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
