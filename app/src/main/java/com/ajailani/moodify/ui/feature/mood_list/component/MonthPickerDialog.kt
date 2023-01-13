@@ -3,7 +3,7 @@ package com.ajailani.moodify.ui.feature.mood_list.component
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -41,7 +41,7 @@ fun MonthPickerDialog(
                         enabled = false,
                         trailingIcon = {
                             Icon(
-                                imageVector = Icons.Default.ExpandMore,
+                                imageVector = Icons.Default.ArrowDropDown,
                                 tint = MaterialTheme.colorScheme.onSurface,
                                 contentDescription = "Expand more icon"
                             )
@@ -85,7 +85,7 @@ fun MonthPickerDialog(
                         enabled = false,
                         trailingIcon = {
                             Icon(
-                                imageVector = Icons.Default.ExpandMore,
+                                imageVector = Icons.Default.ArrowDropDown,
                                 tint = MaterialTheme.colorScheme.onSurface,
                                 contentDescription = "Expand more icon"
                             )
