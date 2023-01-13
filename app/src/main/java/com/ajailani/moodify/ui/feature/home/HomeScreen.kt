@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ajailani.moodify.R
 import com.ajailani.moodify.domain.model.Activity
 import com.ajailani.moodify.domain.model.MoodItem
+import com.ajailani.moodify.ui.common.SharedViewModel
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.common.component.CaptionImage
 import com.ajailani.moodify.ui.common.component.MoodCard
@@ -36,6 +37,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
+    sharedViewModel: SharedViewModel,
     onNavigateToMoodList: () -> Unit,
     onNavigateToMoodDetail: (String) -> Unit,
     onNavigateToAddEditMood: () -> Unit
@@ -44,6 +46,9 @@ fun HomeScreen(
     val recommendedActivitiesState = homeViewModel.recommendedActivitiesState
     val moodsState = homeViewModel.moodsState
     val swipeRefreshing = homeViewModel.swipeRefreshing
+
+    val reloaded = sharedViewModel.reloaded
+    val onReloadedChanged = sharedViewModel::onReloadedChanged
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -90,6 +95,7 @@ fun HomeScreen(
                     RecommendedActivitiesSection(
                         onEvent = onEvent,
                         recommendedActivitiesState = recommendedActivitiesState,
+                        onReloadedChanged = onReloadedChanged,
                         snackbarHostState = snackbarHostState
                     )
                     Spacer(modifier = Modifier.height(30.dp))
@@ -97,10 +103,17 @@ fun HomeScreen(
                         onEvent = onEvent,
                         moodsState = moodsState,
                         snackbarHostState = snackbarHostState,
+                        onReloadedChanged = onReloadedChanged,
                         onViewAllClicked = onNavigateToMoodList,
                         onNavigateToMoodDetail = onNavigateToMoodDetail
                     )
                 }
+            }
+
+            // Observe reloaded state from SharedViewModel
+            if (reloaded) {
+                onEvent(HomeEvent.GetRecommendedActivities)
+                onEvent(HomeEvent.GetMoods)
             }
         }
     }
@@ -129,6 +142,7 @@ private fun Header() {
 private fun RecommendedActivitiesSection(
     onEvent: (HomeEvent) -> Unit,
     recommendedActivitiesState: UIState<List<Activity>>,
+    onReloadedChanged: (Boolean) -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
     Column {
@@ -150,6 +164,7 @@ private fun RecommendedActivitiesSection(
 
             is UIState.Success -> {
                 onEvent(HomeEvent.OnSwipeRefresh(false))
+                onReloadedChanged(false)
 
                 recommendedActivitiesState.data?.let { activities ->
                     if (activities.isNotEmpty()) {
@@ -174,6 +189,7 @@ private fun RecommendedActivitiesSection(
 
             is UIState.Fail -> {
                 onEvent(HomeEvent.OnSwipeRefresh(false))
+                onReloadedChanged(false)
 
                 LaunchedEffect(snackbarHostState) {
                     recommendedActivitiesState.message?.let {
@@ -184,6 +200,7 @@ private fun RecommendedActivitiesSection(
 
             is UIState.Error -> {
                 onEvent(HomeEvent.OnSwipeRefresh(false))
+                onReloadedChanged(false)
 
                 LaunchedEffect(snackbarHostState) {
                     recommendedActivitiesState.message?.let {
@@ -202,6 +219,7 @@ private fun MyMoodsSection(
     onEvent: (HomeEvent) -> Unit,
     moodsState: UIState<List<MoodItem>>,
     snackbarHostState: SnackbarHostState,
+    onReloadedChanged: (Boolean) -> Unit,
     onViewAllClicked: () -> Unit,
     onNavigateToMoodDetail: (String) -> Unit
 ) {
@@ -236,6 +254,7 @@ private fun MyMoodsSection(
 
             is UIState.Success -> {
                 onEvent(HomeEvent.OnSwipeRefresh(false))
+                onReloadedChanged(false)
 
                 moodsState.data?.let { moods ->
                     if (moods.isNotEmpty()) {
@@ -258,6 +277,7 @@ private fun MyMoodsSection(
 
             is UIState.Fail -> {
                 onEvent(HomeEvent.OnSwipeRefresh(false))
+                onReloadedChanged(false)
 
                 LaunchedEffect(snackbarHostState) {
                     moodsState.message?.let {
@@ -268,6 +288,7 @@ private fun MyMoodsSection(
 
             is UIState.Error -> {
                 onEvent(HomeEvent.OnSwipeRefresh(false))
+                onReloadedChanged(false)
 
                 LaunchedEffect(snackbarHostState) {
                     moodsState.message?.let {

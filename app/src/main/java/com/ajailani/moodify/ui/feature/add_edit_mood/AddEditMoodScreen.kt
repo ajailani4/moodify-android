@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.ajailani.moodify.R
+import com.ajailani.moodify.ui.common.SharedViewModel
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.common.component.ProgressBarWithBackground
 import com.ajailani.moodify.ui.feature.add_edit_mood.component.CustomTextField
@@ -38,6 +39,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun AddEditMoodScreen(
     addEditViewModel: AddEditViewModel = hiltViewModel(),
+    sharedViewModel: SharedViewModel,
     onNavigateUp: () -> Unit
 ) {
     val onEvent = addEditViewModel::onEvent
@@ -49,8 +51,11 @@ fun AddEditMoodScreen(
     val date = addEditViewModel.date
     val time = addEditViewModel.time
 
+    val onReloadedChanged = sharedViewModel::onReloadedChanged
+
     // Currently mood choices in this screen only available in English,
-    // because the mood choices UI need to be adjusted to the screen width
+    // because it's better to use English so that the mood choices UI
+    // can be adjusted to the screen width easily.
     val moodChoices = listOf(
         "Terrible",
         "Bad",
@@ -255,6 +260,7 @@ fun AddEditMoodScreen(
 
             is UIState.Success -> {
                 LaunchedEffect(Unit) {
+                    onReloadedChanged(true)
                     onNavigateUp()
                 }
             }
