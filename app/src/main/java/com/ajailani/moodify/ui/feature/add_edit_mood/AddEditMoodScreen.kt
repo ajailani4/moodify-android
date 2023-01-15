@@ -16,6 +16,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -198,6 +199,7 @@ fun AddEditMoodScreen(
                                                     model = ImageRequest.Builder(context)
                                                         .data(activity.icon)
                                                         .build(),
+                                                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onSurfaceVariant),
                                                     contentDescription = "Activity icon"
                                                 )
                                             },
