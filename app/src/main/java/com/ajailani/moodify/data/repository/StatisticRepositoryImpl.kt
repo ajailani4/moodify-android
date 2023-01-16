@@ -8,12 +8,8 @@ import com.ajailani.moodify.data.mapper.toMoodPercentage
 import com.ajailani.moodify.data.remote.data_source.StatisticRemoteDataSource
 import com.ajailani.moodify.data.remote.dto.FrequentActivityDto
 import com.ajailani.moodify.data.remote.dto.MoodPercentageDto
-import com.ajailani.moodify.domain.model.FrequentActivity
-import com.ajailani.moodify.domain.model.MoodPercentage
 import com.ajailani.moodify.domain.repository.StatisticRepository
-import com.ajailani.moodify.util.StatisticType
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -23,9 +19,7 @@ class StatisticRepositoryImpl @Inject constructor(
 ) : StatisticRepository {
     override fun getMoodPercentage() =
         flow {
-            val response = statisticRemoteDataSource.getStatistic<MoodPercentageDto>(
-                StatisticType.MOOD_PERCENTAGE.toString()
-            )
+            val response = statisticRemoteDataSource.getMoodPercentage()
 
             when (response.code()) {
                 200 -> emit(Resource.Success(response.body()?.data?.toMoodPercentage()))
@@ -36,9 +30,7 @@ class StatisticRepositoryImpl @Inject constructor(
 
     override fun getFrequentActivities() =
         flow {
-            val response = statisticRemoteDataSource.getStatistic<List<FrequentActivityDto>>(
-                StatisticType.FREQUENT_ACTIVITIES.toString()
-            )
+            val response = statisticRemoteDataSource.getFrequentActivities()
 
             when (response.code()) {
                 200 -> emit(Resource.Success(response.body()?.data?.map { frequentActivityDto ->
