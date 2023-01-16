@@ -9,14 +9,6 @@ import javax.inject.Inject
 class StatisticRemoteDataSource @Inject constructor(
     private val statisticService: StatisticService
 ) {
-    suspend fun getStatistic(type: StatisticType) =
-        when (type) {
-            StatisticType.MOOD_PERCENTAGE -> {
-                statisticService.getStatistic<MoodPercentageDto>(type.toString())
-            }
-
-            StatisticType.FREQUENT_ACTIVITIES -> {
-                statisticService.getStatistic<List<FrequentActivityDto>>(type.toString())
-            }
-        }
+    suspend fun <T> getStatistic(type: String) =
+        statisticService.getStatistic<T>(type)
 }
