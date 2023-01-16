@@ -2,5 +2,7 @@
 <resources>
     <color name="primary">#FF006C45</color>
     <color name="secondary">#FF4E6355</color>
+    <color name="tertiary">#FF3C6472</color>
+    <color name="onSurfaceVariant">#FF404943</color>
     <color name="background">#FFFBFDF8</color>
 </resources>

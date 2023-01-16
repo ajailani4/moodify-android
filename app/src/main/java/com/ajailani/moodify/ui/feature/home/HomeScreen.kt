@@ -86,10 +86,7 @@ fun HomeScreen(
                     .padding(innerPadding)
                     .verticalScroll(rememberScrollState())
             ) {
-                Column(
-                    modifier = Modifier
-                        .padding(20.dp)
-                ) {
+                Column(modifier = Modifier.padding(20.dp)) {
                     Header()
                     Spacer(modifier = Modifier.height(30.dp))
                     RecommendedActivitiesSection(

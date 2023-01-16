@@ -71,4 +71,7 @@
     <string name="what_activity">Aktivitas apa yang membuat perasaan ini?</string>
     <string name="insert_a_note">Masukkan catatan</string>
     <string name="save">Simpan</string>
+
+    <string name="mood_percentage">Persentase Mood</string>
+    <string name="frequent_activities">Aktivitas yang Sering</string>
 </resources>

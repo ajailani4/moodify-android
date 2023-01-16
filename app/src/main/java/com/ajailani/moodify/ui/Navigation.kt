@@ -13,6 +13,7 @@ import com.ajailani.moodify.ui.feature.login.LoginScreen
 import com.ajailani.moodify.ui.feature.mood_detail.MoodDetailScreen
 import com.ajailani.moodify.ui.feature.mood_list.MoodListScreen
 import com.ajailani.moodify.ui.feature.register.RegisterScreen
+import com.ajailani.moodify.ui.feature.statistic.StatisticScreen
 import com.ajailani.moodify.ui.feature.welcome.WelcomeScreen
 
 @Composable
@@ -123,7 +124,7 @@ fun Navigation(
         }
 
         composable(Screen.Statistic.route) {
-
+            StatisticScreen()
         }
 
         composable(Screen.Profile.route) {
