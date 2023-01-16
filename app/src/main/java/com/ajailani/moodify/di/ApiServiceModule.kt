@@ -1,9 +1,6 @@
 package com.ajailani.moodify.di
 
-import com.ajailani.moodify.data.remote.api_service.ActivityService
-import com.ajailani.moodify.data.remote.api_service.AuthService
-import com.ajailani.moodify.data.remote.api_service.MoodService
-import com.ajailani.moodify.data.remote.api_service.StatisticService
+import com.ajailani.moodify.data.remote.api_service.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,4 +30,9 @@ object ApiServiceModule {
     @Singleton
     fun provideStatisticService(retrofit: Retrofit): StatisticService =
         retrofit.create(StatisticService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUserProfileService(retrofit: Retrofit): UserProfileService =
+        retrofit.create(UserProfileService::class.java)
 }

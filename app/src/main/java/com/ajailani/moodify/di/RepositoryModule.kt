@@ -34,4 +34,9 @@ abstract class RepositoryModule {
     abstract fun bindStatisticRepository(
         statisticRepositoryImpl: StatisticRepositoryImpl
     ): StatisticRepository
+
+    @Binds
+    abstract fun bindUserProfileRepository(
+        userProfileRepositoryImpl: UserProfileRepositoryImpl
+    ): UserProfileRepository
 }
