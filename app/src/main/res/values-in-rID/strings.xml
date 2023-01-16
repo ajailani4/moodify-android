@@ -74,4 +74,6 @@
 
     <string name="mood_percentage">Persentase Mood</string>
     <string name="frequent_activities">Aktivitas yang Sering</string>
+
+    <string name="logout">Keluar</string>
 </resources>
