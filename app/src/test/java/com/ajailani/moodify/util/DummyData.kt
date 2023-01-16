@@ -1,9 +1,6 @@
 package com.ajailani.moodify.util
 
-import com.ajailani.moodify.data.remote.dto.ActivityDto
-import com.ajailani.moodify.data.remote.dto.MoodDto
-import com.ajailani.moodify.data.remote.dto.MoodItemDto
-import com.ajailani.moodify.data.remote.dto.UserCredentialDto
+import com.ajailani.moodify.data.remote.dto.*
 import com.ajailani.moodify.domain.model.*
 
 val userCredential = UserCredential("a1b2c3")
@@ -113,6 +110,14 @@ val moodPercentage = MoodPercentage(
     terrible = 10f
 )
 
+val moodPercentageDto = MoodPercentageDto(
+    excellent = 35f,
+    good = 25f,
+    okay = 15f,
+    bad = 15f,
+    terrible = 10f
+)
+
 val frequentActivities = listOf(
     FrequentActivity(
         activity = "Membaca",
@@ -123,6 +128,21 @@ val frequentActivities = listOf(
         count = 5
     ),
     FrequentActivity(
+        activity = "Bermain game",
+        count = 4
+    )
+)
+
+val frequentActivitiesDto = listOf(
+    FrequentActivityDto(
+        activity = "Membaca",
+        count = 8
+    ),
+    FrequentActivityDto(
+        activity = "Bersantai",
+        count = 5
+    ),
+    FrequentActivityDto(
         activity = "Bermain game",
         count = 4
     )

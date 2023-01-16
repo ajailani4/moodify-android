@@ -51,7 +51,7 @@ class AuthRepositoryTest {
                 201,
                 BaseResponse(
                     code = 201,
-                    status = "OK",
+                    status = "Created",
                     data = userCredentialDto
                 )
             )
