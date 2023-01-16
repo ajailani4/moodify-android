@@ -7,5 +7,14 @@ import javax.inject.Inject
 class GetStatisticUseCase @Inject constructor(
     private val statisticRepository: StatisticRepository
 ) {
-    operator fun invoke(type: StatisticType) = statisticRepository.getStatistic(type)
+    operator fun invoke(type: StatisticType) =
+        when (type) {
+            StatisticType.MOOD_PERCENTAGE -> {
+                statisticRepository.getMoodPercentage()
+            }
+
+            StatisticType.FREQUENT_ACTIVITIES -> {
+                statisticRepository.getFrequentActivities()
+            }
+        }
 }
