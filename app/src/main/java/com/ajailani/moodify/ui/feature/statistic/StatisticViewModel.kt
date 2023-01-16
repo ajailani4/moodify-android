@@ -11,7 +11,6 @@ import com.ajailani.moodify.domain.model.MoodPercentage
 import com.ajailani.moodify.domain.use_case.statistic.GetFrequentActivitiesUseCase
 import com.ajailani.moodify.domain.use_case.statistic.GetMoodPercentageUseCase
 import com.ajailani.moodify.ui.common.UIState
-import com.ajailani.moodify.util.StatisticType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
