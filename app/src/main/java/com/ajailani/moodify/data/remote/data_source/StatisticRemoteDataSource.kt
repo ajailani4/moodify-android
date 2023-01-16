@@ -9,6 +9,5 @@ import javax.inject.Inject
 class StatisticRemoteDataSource @Inject constructor(
     private val statisticService: StatisticService
 ) {
-    suspend fun <T> getStatistic(type: String) =
-        statisticService.getStatistic<T>(type)
+    suspend fun <T> getStatistic(type: String) = statisticService.getStatistic<T>(type)
 }
