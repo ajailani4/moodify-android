@@ -201,7 +201,7 @@ fun RegisterScreen(
                     }
                 ) {
                     Text(
-                        modifier = Modifier.padding(5.dp),
+                        modifier = Modifier.padding(3.dp),
                         text = stringResource(id = R.string.register)
                     )
                 }
