@@ -1,12 +1,9 @@
 package com.ajailani.moodify.domain.use_case.user_profile
 
 import com.ajailani.moodify.data.Resource
-import com.ajailani.moodify.domain.model.MoodPercentage
 import com.ajailani.moodify.domain.model.UserProfile
-import com.ajailani.moodify.domain.repository.StatisticRepositoryFake
 import com.ajailani.moodify.domain.repository.UserProfileRepositoryFake
 import com.ajailani.moodify.util.ResourceType
-import com.ajailani.moodify.util.moodPercentage
 import com.ajailani.moodify.util.userProfile
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

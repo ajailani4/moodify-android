@@ -12,7 +12,6 @@ import com.ajailani.moodify.domain.use_case.user_profile.GetUserProfileUseCase
 import com.ajailani.moodify.ui.common.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

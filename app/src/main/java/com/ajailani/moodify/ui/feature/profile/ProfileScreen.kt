@@ -15,8 +15,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ajailani.moodify.R
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.common.component.ProgressBarWithBackground
-import com.ajailani.moodify.ui.feature.mood_detail.MoodDetailEvent
-import com.ajailani.moodify.ui.feature.statistic.StatisticEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

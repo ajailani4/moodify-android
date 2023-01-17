@@ -1,19 +1,13 @@
 package com.ajailani.moodify.ui.viewmodel
 
 import com.ajailani.moodify.data.Resource
-import com.ajailani.moodify.domain.model.FrequentActivity
-import com.ajailani.moodify.domain.model.MoodPercentage
 import com.ajailani.moodify.domain.model.UserProfile
 import com.ajailani.moodify.domain.use_case.user_credential.DeleteAccessTokenUseCase
 import com.ajailani.moodify.domain.use_case.user_profile.GetUserProfileUseCase
 import com.ajailani.moodify.ui.common.UIState
 import com.ajailani.moodify.ui.feature.profile.ProfileEvent
 import com.ajailani.moodify.ui.feature.profile.ProfileViewModel
-import com.ajailani.moodify.ui.feature.statistic.StatisticEvent
-import com.ajailani.moodify.ui.feature.statistic.StatisticViewModel
 import com.ajailani.moodify.util.TestCoroutineRule
-import com.ajailani.moodify.util.frequentActivities
-import com.ajailani.moodify.util.moodPercentage
 import com.ajailani.moodify.util.userProfile
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf

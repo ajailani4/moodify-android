@@ -6,7 +6,6 @@ import com.ajailani.moodify.domain.model.Mood
 import com.ajailani.moodify.domain.use_case.mood.DeleteMoodUseCase
 import com.ajailani.moodify.domain.use_case.mood.GetMoodDetailUseCase
 import com.ajailani.moodify.ui.common.UIState
-import com.ajailani.moodify.ui.feature.add_edit_mood.AddEditMoodEvent
 import com.ajailani.moodify.ui.feature.mood_detail.MoodDetailEvent
 import com.ajailani.moodify.ui.feature.mood_detail.MoodDetailViewModel
 import com.ajailani.moodify.util.TestCoroutineRule
@@ -18,12 +17,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 
 @ExperimentalCoroutinesApi

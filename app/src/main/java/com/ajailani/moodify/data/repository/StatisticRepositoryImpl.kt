@@ -6,8 +6,6 @@ import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.data.mapper.toFrequentActivity
 import com.ajailani.moodify.data.mapper.toMoodPercentage
 import com.ajailani.moodify.data.remote.data_source.StatisticRemoteDataSource
-import com.ajailani.moodify.data.remote.dto.FrequentActivityDto
-import com.ajailani.moodify.data.remote.dto.MoodPercentageDto
 import com.ajailani.moodify.domain.repository.StatisticRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flow
