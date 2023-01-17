@@ -73,7 +73,8 @@
     <string name="save">Simpan</string>
 
     <string name="mood_percentage">Persentase Mood</string>
-    <string name="frequent_activities">Aktivitas yang Sering</string>
+    <string name="frequent_activities">Aktivitas yang Sering dilakukan</string>
+    <string name="no_data">Tidak ada data</string>
 
     <string name="logout">Keluar</string>
     <string name="logout_confirm_msg">Apakah kamu yakin ingin keluar?</string>

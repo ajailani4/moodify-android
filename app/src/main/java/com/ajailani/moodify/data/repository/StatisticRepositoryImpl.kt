@@ -24,6 +24,8 @@ class StatisticRepositoryImpl @Inject constructor(
             when (response.code()) {
                 200 -> emit(Resource.Success(response.body()?.data?.toMoodPercentage()))
 
+                404 -> emit(Resource.Error(context.getString(R.string.no_data)))
+
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
         }
@@ -36,6 +38,8 @@ class StatisticRepositoryImpl @Inject constructor(
                 200 -> emit(Resource.Success(response.body()?.data?.map { frequentActivityDto ->
                     frequentActivityDto.toFrequentActivity()
                 }))
+
+                404 -> emit(Resource.Error(context.getString(R.string.no_data)))
 
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }

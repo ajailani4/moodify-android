@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -24,6 +25,7 @@ import com.ajailani.moodify.R
 import com.ajailani.moodify.domain.model.FrequentActivity
 import com.ajailani.moodify.domain.model.MoodPercentage
 import com.ajailani.moodify.ui.common.UIState
+import com.ajailani.moodify.ui.common.component.CaptionImage
 import com.ajailani.moodify.ui.feature.statistic.component.ChartLegend
 import com.ajailani.moodify.ui.theme.*
 import com.github.mikephil.charting.charts.BarChart
@@ -148,7 +150,6 @@ private fun MoodPercentageSection(
                                         description.isEnabled = false
                                         isDrawHoleEnabled = true
                                         legend.isEnabled = false
-                                        setUsePercentValues(true)
                                     }
                                 },
                                 update = { pieChart ->
@@ -203,10 +204,12 @@ private fun MoodPercentageSection(
                 is UIState.Fail -> {
                     onEvent(StatisticEvent.OnSwipeRefresh(false))
 
-                    LaunchedEffect(snackbarHostState) {
-                        moodPercentageState.message?.let {
-                            snackbarHostState.showSnackbar(it)
-                        }
+                    moodPercentageState.message?.let {
+                        CaptionImage(
+                            modifier = Modifier.size(150.dp),
+                            image = painterResource(id = R.drawable.illustration_no_data),
+                            caption = it
+                        )
                     }
                 }
 
@@ -327,10 +330,12 @@ private fun FrequentActivitiesSection(
                 is UIState.Fail -> {
                     onEvent(StatisticEvent.OnSwipeRefresh(false))
 
-                    LaunchedEffect(snackbarHostState) {
-                        frequentActivitiesState.message?.let {
-                            snackbarHostState.showSnackbar(it)
-                        }
+                    frequentActivitiesState.message?.let {
+                        CaptionImage(
+                            modifier = Modifier.size(150.dp),
+                            image = painterResource(id = R.drawable.illustration_no_data),
+                            caption = it
+                        )
                     }
                 }
 
