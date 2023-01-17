@@ -76,4 +76,5 @@
     <string name="frequent_activities">Aktivitas yang Sering</string>
 
     <string name="logout">Keluar</string>
+    <string name="logout_confirm_msg">Apakah kamu yakin ingin keluar?</string>
 </resources>

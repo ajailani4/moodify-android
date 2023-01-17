@@ -129,7 +129,17 @@ fun Navigation(
         }
 
         composable(Screen.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(
+                onNavigateToWelcome = {
+                    navController.navigate(Screen.Welcome.route) {
+                        launchSingleTop = true
+
+                        popUpTo(Screen.Home.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
     }
 }
