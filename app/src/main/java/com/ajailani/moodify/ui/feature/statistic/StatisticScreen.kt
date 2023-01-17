@@ -32,6 +32,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -169,7 +170,15 @@ private fun MoodPercentageSection(
                                     }
 
                                     val pieData = PieData(pieDataSet)
-                                    pieData.setValueFormatter(PercentFormatter(pieChart))
+                                    pieData.setValueFormatter(object : ValueFormatter() {
+                                        override fun getFormattedValue(value: Float): String {
+                                            return if (value == 0f) {
+                                                ""
+                                            } else {
+                                                "$value%"
+                                            }
+                                        }
+                                    })
 
                                     pieChart.data = pieData
                                     pieChart.invalidate()
@@ -294,6 +303,7 @@ private fun FrequentActivitiesSection(
                                     barChart.axisLeft.apply {
                                         granularity = 1f
                                         isGranularityEnabled = true
+                                        textSize = 12f
                                         textColor = ContextCompat.getColor(
                                             context,
                                             R.color.onSurfaceVariant
