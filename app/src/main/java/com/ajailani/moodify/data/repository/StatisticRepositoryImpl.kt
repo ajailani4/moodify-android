@@ -6,8 +6,6 @@ import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.data.mapper.toFrequentActivity
 import com.ajailani.moodify.data.mapper.toMoodPercentage
 import com.ajailani.moodify.data.remote.data_source.StatisticRemoteDataSource
-import com.ajailani.moodify.data.remote.dto.FrequentActivityDto
-import com.ajailani.moodify.data.remote.dto.MoodPercentageDto
 import com.ajailani.moodify.domain.repository.StatisticRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flow
@@ -24,6 +22,8 @@ class StatisticRepositoryImpl @Inject constructor(
             when (response.code()) {
                 200 -> emit(Resource.Success(response.body()?.data?.toMoodPercentage()))
 
+                404 -> emit(Resource.Error(context.getString(R.string.no_data)))
+
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
         }
@@ -36,6 +36,8 @@ class StatisticRepositoryImpl @Inject constructor(
                 200 -> emit(Resource.Success(response.body()?.data?.map { frequentActivityDto ->
                     frequentActivityDto.toFrequentActivity()
                 }))
+
+                404 -> emit(Resource.Error(context.getString(R.string.no_data)))
 
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }

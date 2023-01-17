@@ -73,4 +73,8 @@
 
     <string name="mood_percentage">Mood Percentage</string>
     <string name="frequent_activities">Frequent Activities</string>
+    <string name="no_data">No data</string>
+
+    <string name="logout">Logout</string>
+    <string name="logout_confirm_msg">Are you sure to logout?</string>
 </resources>

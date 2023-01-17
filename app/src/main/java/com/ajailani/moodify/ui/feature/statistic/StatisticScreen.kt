@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -24,6 +25,7 @@ import com.ajailani.moodify.R
 import com.ajailani.moodify.domain.model.FrequentActivity
 import com.ajailani.moodify.domain.model.MoodPercentage
 import com.ajailani.moodify.ui.common.UIState
+import com.ajailani.moodify.ui.common.component.CaptionImage
 import com.ajailani.moodify.ui.feature.statistic.component.ChartLegend
 import com.ajailani.moodify.ui.theme.*
 import com.github.mikephil.charting.charts.BarChart
@@ -31,7 +33,7 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -147,7 +149,6 @@ private fun MoodPercentageSection(
                                         description.isEnabled = false
                                         isDrawHoleEnabled = true
                                         legend.isEnabled = false
-                                        setUsePercentValues(true)
                                     }
                                 },
                                 update = { pieChart ->
@@ -169,7 +170,15 @@ private fun MoodPercentageSection(
                                     }
 
                                     val pieData = PieData(pieDataSet)
-                                    pieData.setValueFormatter(PercentFormatter(pieChart))
+                                    pieData.setValueFormatter(object : ValueFormatter() {
+                                        override fun getFormattedValue(value: Float): String {
+                                            return if (value == 0f) {
+                                                ""
+                                            } else {
+                                                "$value%"
+                                            }
+                                        }
+                                    })
 
                                     pieChart.data = pieData
                                     pieChart.invalidate()
@@ -194,10 +203,12 @@ private fun MoodPercentageSection(
                 is UIState.Fail -> {
                     onEvent(StatisticEvent.OnSwipeRefresh(false))
 
-                    LaunchedEffect(snackbarHostState) {
-                        moodPercentageState.message?.let {
-                            snackbarHostState.showSnackbar(it)
-                        }
+                    moodPercentageState.message?.let {
+                        CaptionImage(
+                            modifier = Modifier.size(150.dp),
+                            image = painterResource(id = R.drawable.illustration_no_data),
+                            caption = it
+                        )
                     }
                 }
 
@@ -294,6 +305,7 @@ private fun FrequentActivitiesSection(
                                     barChart.axisLeft.apply {
                                         granularity = 1f
                                         isGranularityEnabled = true
+                                        textSize = 12f
                                         textColor = ContextCompat.getColor(
                                             context,
                                             R.color.onSurfaceVariant
@@ -317,10 +329,12 @@ private fun FrequentActivitiesSection(
                 is UIState.Fail -> {
                     onEvent(StatisticEvent.OnSwipeRefresh(false))
 
-                    LaunchedEffect(snackbarHostState) {
-                        frequentActivitiesState.message?.let {
-                            snackbarHostState.showSnackbar(it)
-                        }
+                    frequentActivitiesState.message?.let {
+                        CaptionImage(
+                            modifier = Modifier.size(150.dp),
+                            image = painterResource(id = R.drawable.illustration_no_data),
+                            caption = it
+                        )
                     }
                 }
 

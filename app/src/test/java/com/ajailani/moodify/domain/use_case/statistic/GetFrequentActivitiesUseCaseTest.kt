@@ -2,11 +2,9 @@ package com.ajailani.moodify.domain.use_case.statistic
 
 import com.ajailani.moodify.data.Resource
 import com.ajailani.moodify.domain.model.FrequentActivity
-import com.ajailani.moodify.domain.model.MoodPercentage
 import com.ajailani.moodify.domain.repository.StatisticRepositoryFake
 import com.ajailani.moodify.util.ResourceType
 import com.ajailani.moodify.util.frequentActivities
-import com.ajailani.moodify.util.moodPercentage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.UnconfinedTestDispatcher

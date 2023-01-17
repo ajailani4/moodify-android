@@ -3,14 +3,10 @@ package com.ajailani.moodify.data
 import android.content.Context
 import com.ajailani.moodify.data.remote.data_source.StatisticRemoteDataSource
 import com.ajailani.moodify.data.remote.dto.FrequentActivityDto
-import com.ajailani.moodify.data.remote.dto.MoodDto
-import com.ajailani.moodify.data.remote.dto.MoodItemDto
 import com.ajailani.moodify.data.remote.dto.MoodPercentageDto
 import com.ajailani.moodify.data.remote.dto.response.BaseResponse
-import com.ajailani.moodify.data.repository.MoodRepositoryImpl
 import com.ajailani.moodify.data.repository.StatisticRepositoryImpl
 import com.ajailani.moodify.domain.model.FrequentActivity
-import com.ajailani.moodify.domain.model.Mood
 import com.ajailani.moodify.domain.model.MoodPercentage
 import com.ajailani.moodify.domain.repository.StatisticRepository
 import com.ajailani.moodify.util.*
@@ -23,12 +19,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.kotlin.any
-import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import retrofit2.Response
 
@@ -79,7 +71,7 @@ class StatisticRepositoryTest {
     fun `Get mood percentage should return error resource`() =
         runTest(UnconfinedTestDispatcher()) {
             val response = Response.error<MoodPercentageDto>(
-                400,
+                404,
                 "".toResponseBody()
             )
 
@@ -121,7 +113,7 @@ class StatisticRepositoryTest {
     fun `Get frequent activities should return error resource`() =
         runTest(UnconfinedTestDispatcher()) {
             val response = Response.error<List<FrequentActivityDto>>(
-                400,
+                404,
                 "".toResponseBody()
             )
 

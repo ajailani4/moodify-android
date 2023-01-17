@@ -147,3 +147,15 @@ val frequentActivitiesDto = listOf(
         count = 4
     )
 )
+
+val userProfile = UserProfile(
+    name = "George Zayvich",
+    username = "george",
+    email = "george@email.com"
+)
+
+val userProfileDto = UserProfileDto(
+    name = "George Zayvich",
+    username = "george",
+    email = "george@email.com"
+)

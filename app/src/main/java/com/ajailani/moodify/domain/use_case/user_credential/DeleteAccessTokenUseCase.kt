@@ -6,5 +6,7 @@ import javax.inject.Inject
 class DeleteAccessTokenUseCase @Inject constructor(
     private val userCredentialRepository: UserCredentialRepository
 ) {
-    suspend operator fun invoke() = userCredentialRepository.deleteAccessToken()
+    suspend operator fun invoke() {
+        userCredentialRepository.deleteAccessToken()
+    }
 }
