@@ -79,7 +79,7 @@ class StatisticRepositoryTest {
     fun `Get mood percentage should return error resource`() =
         runTest(UnconfinedTestDispatcher()) {
             val response = Response.error<MoodPercentageDto>(
-                400,
+                404,
                 "".toResponseBody()
             )
 
@@ -121,7 +121,7 @@ class StatisticRepositoryTest {
     fun `Get frequent activities should return error resource`() =
         runTest(UnconfinedTestDispatcher()) {
             val response = Response.error<List<FrequentActivityDto>>(
-                400,
+                404,
                 "".toResponseBody()
             )
 
