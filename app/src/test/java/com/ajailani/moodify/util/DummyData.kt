@@ -153,3 +153,9 @@ val userProfile = UserProfile(
     username = "george",
     email = "george@email.com"
 )
+
+val userProfileDto = UserProfileDto(
+    name = "George Zayvich",
+    username = "george",
+    email = "george@email.com"
+)
