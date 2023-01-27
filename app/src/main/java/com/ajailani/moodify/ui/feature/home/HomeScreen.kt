@@ -118,7 +118,10 @@ fun HomeScreen(
 
 @Composable
 private fun Header() {
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Image(
             modifier = Modifier
                 .size(30.dp)
