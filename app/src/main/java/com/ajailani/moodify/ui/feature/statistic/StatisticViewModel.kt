@@ -71,7 +71,7 @@ class StatisticViewModel @Inject constructor(
                 frequentActivitiesState = when (it) {
                     is Resource.Success -> UIState.Success(
                         it.data?.let { frequentActivities ->
-                            if (frequentActivities.isNotEmpty()) {
+                            if (frequentActivities.isNotEmpty() && frequentActivities.size >= 3) {
                                 frequentActivities.slice(0..2)
                             } else {
                                 frequentActivities
