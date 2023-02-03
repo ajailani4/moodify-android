@@ -1,3 +1,80 @@
 <resources>
     <string name="app_name">Moodify</string>
+    
+    <string name="welcome_to_moodify">Welcome to Moodify</string>
+    <string name="track_your_moods">Track your moods and get the recommended activities</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+    <string name="have_account">Have an account?</string>
+    <string name="login_here">Login here</string>
+    <string name="have_no_account">Don\'t have an account?</string>
+    <string name="register_here">Register here</string>
+
+    <string name="fill_the_form">Please fill the form completely</string>
+    <string name="username_already_exists">Username already exists. Try another username</string>
+    <string name="incorrect_username_or_pass">Username or password is incorrect</string>
+    <string name="something_wrong_happened">Sorry, something wrong happened</string>
+    
+    <string name="home">Home</string>
+    <string name="statistic">Statistic</string>
+    <string name="profile">Profile</string>
+
+    <string name="recommended_activities">Recommended Activities</string>
+    <string name="my_moods">My Moods</string>
+    <string name="view_all">View all</string>
+    <string name="excellent">Excellent</string>
+    <string name="good">Good</string>
+    <string name="okay">Okay</string>
+    <string name="bad">Bad</string>
+    <string name="terrible">Terrible</string>
+    <string name="no_recommendation_yet">No recommendations yet</string>
+    <string name="no_moods">You don\'t have mood notes yet.\nLet\'s record your moods</string>
+
+    <string name="select_month">Select Month</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+    <string name="mood_detail">Mood Detail</string>
+    <string name="activity_that_make">Activity that make this feeling</string>
+    <string name="activity">Activity</string>
+    <string name="note">Note</string>
+    <string name="no_note">No note</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="delete_mood">Delete Mood</string>
+    <string name="delete_mood_confirm_msg">Are you sure to delete this mood?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    
+    <string name="how_are_you">How are you?</string>
+    <string name="what_activity">What activity make this feeling?</string>
+    <string name="insert_a_note">Insert a note</string>
+    <string name="save">Save</string>
+
+    <string name="mood_percentage">Mood Percentage</string>
+    <string name="frequent_activities">Frequent Activities</string>
+    <string name="no_data">No data</string>
+
+    <string name="logout">Logout</string>
+    <string name="logout_confirm_msg">Are you sure to logout?</string>
 </resources>

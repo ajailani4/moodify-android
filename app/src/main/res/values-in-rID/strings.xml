@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Moodify</string>
+
+    <string name="welcome_to_moodify">Selamat Datang di Moodify</string>
+    <string name="track_your_moods">Catat mood kamu dan dapatkan rekomendasi aktivitas</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
+
+    <string name="name">Nama</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Kata Sandi</string>
+
+    <string name="have_account">Sudah punya akun?</string>
+    <string name="login_here">Login di sini</string>
+    <string name="have_no_account">Belum punya akun?</string>
+    <string name="register_here">Daftar di sini</string>
+
+    <string name="fill_the_form">Mohon isi form dengan lengkap</string>
+    <string name="username_already_exists">Username sudah ada. Coba yang lain</string>
+    <string name="incorrect_username_or_pass">Username atau password salah</string>
+    <string name="something_wrong_happened">Maaf, terjadi kesalahan</string>
+
+    <string name="home">Beranda</string>
+    <string name="statistic">Statistik</string>
+    <string name="profile">Profil</string>
+
+    <string name="recommended_activities">Rekomendasi Aktivitas</string>
+    <string name="my_moods">Mood Saya</string>
+    <string name="view_all">Lihat semua</string>
+    <string name="excellent">Bagus Sekali</string>
+    <string name="good">Bagus</string>
+    <string name="okay">Biasa Saja</string>
+    <string name="bad">Buruk</string>
+    <string name="terrible">Buruk Sekali</string>
+    <string name="no_recommendation_yet">Belum ada rekomendasi</string>
+    <string name="no_moods">Kamu belum memiliki catatan mood.\nAyo catat mood kamu</string>
+
+    <string name="select_month">Pilih Bulan</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Batal</string>
+    <string-array name="months">
+        <item>Januari</item>
+        <item>Februari</item>
+        <item>Maret</item>
+        <item>April</item>
+        <item>Mei</item>
+        <item>Juni</item>
+        <item>Juli</item>
+        <item>Agustus</item>
+        <item>September</item>
+        <item>Oktober</item>
+        <item>November</item>
+        <item>Desember</item>
+    </string-array>
+
+    <string name="mood_detail">Detail Mood</string>
+    <string name="activity_that_make">Aktivitas yang mempengaruhi perasaan ini</string>
+    <string name="activity">Aktivitas</string>
+    <string name="note">Catatan</string>
+    <string name="no_note">Tidak ada catatan</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Hapus</string>
+    <string name="delete_mood">Hapus Mood</string>
+    <string name="delete_mood_confirm_msg">Apakah kamu yakin ingin menghapus mood ini?</string>
+    <string name="yes">Iya</string>
+    <string name="no">Tidak</string>
+
+    <string name="how_are_you">Bagaimana kabarmu?</string>
+    <string name="what_activity">Aktivitas apa yang membuat perasaan ini?</string>
+    <string name="insert_a_note">Masukkan catatan</string>
+    <string name="save">Simpan</string>
+
+    <string name="mood_percentage">Persentase Mood</string>
+    <string name="frequent_activities">Aktivitas yang Sering dilakukan</string>
+    <string name="no_data">Tidak ada data</string>
+
+    <string name="logout">Keluar</string>
+    <string name="logout_confirm_msg">Apakah kamu yakin ingin keluar?</string>
+</resources>
