@@ -1,4 +1,4 @@
-# Projekan
+# Moodify
 Moodify is a mood tracker app that can note and manage your mood. You can get the recommended activities based on your mood.
 
 ## Architecture
